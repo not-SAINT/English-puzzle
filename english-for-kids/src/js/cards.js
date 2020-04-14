@@ -1,5 +1,5 @@
 const cards = [ 
-  ['Action (set A)', 'Action (set B)', 'Animal (set A)', 'Animal (set B)', 'Clothes', 'Emotions'],
+  ['Action (set A)', 'Action (set B)', 'Animal (set A)', 'Animal (set B)', 'Clothes', 'Emotions', 'Fruits'],
   [
     {
       word: 'cry',
@@ -171,7 +171,7 @@ const cards = [
     },
     {
       word: 'giraffe',
-      translation: 'жирафа',
+      translation: 'жираф',
       image: 'img/giraffe.jpg',
       audioSrc: 'audio/giraffe.mp3'
     },
@@ -298,6 +298,56 @@ const cards = [
       translation: 'смех',
       image: 'img/laugh.jpg',
       audioSrc: 'audio/laugh.mp3'
+    }
+  ],
+  [
+    {
+      word: 'apple',
+      translation: 'яблоко',
+      image: 'img/apple.jpg',
+      audioSrc: 'audio/apple.mp3'
+    },
+    {
+      word: 'peach',
+      translation: 'персик',
+      image: 'img/peach.jpg',
+      audioSrc: 'audio/peach.mp3'
+    },
+    {
+      word: 'banana',
+      translation: 'банан',
+      image: 'img/banana.jpg',
+      audioSrc: 'audio/banana.mp3'
+    },
+    {
+      word: 'cherry',
+      translation: 'вишня',
+      image: 'img/cherry.jpg',
+      audioSrc: 'audio/cherry.mp3'
+    },
+    {
+      word: 'lemon',
+      translation: 'лемон',
+      image: 'img/lemon.jpg',
+      audioSrc: 'audio/lemon.mp3'
+    },
+    {
+      word: 'mango',
+      translation: 'манго',
+      image: 'img/mango.jpg',
+      audioSrc: 'audio/mango.mp3'
+    },
+    {
+      word: 'pear',
+      translation: 'груша',
+      image: 'img/pear.jpg',
+      audioSrc: 'audio/pear.mp3'
+    },
+    {
+      word: 'strawberry',
+      translation: 'клубника',
+      image: 'img/strawberry.jpg',
+      audioSrc: 'audio/strawberry.mp3'
     }
   ]
 ]

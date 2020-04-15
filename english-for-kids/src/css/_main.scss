@@ -1,14 +1,88 @@
 .container {
-  display: flex;
-  width: 1020px;
+  @extend %container-base;
   // height: 600px;
   position: relative;
-  margin: 100px auto 0;
+  margin: 30px auto 0;
   justify-content: space-around;
   align-content: flex-start;
   flex-wrap: wrap;
+  user-select: none;
 }
 
+.btn-container {
+  display: flex;
+  width: $container-size-l;
+  margin: 0 auto;
+  justify-content: center;
+}
+
+// button play
+.start-btn {
+  width: 300px;
+  height: 50px;
+  margin: 0 auto;
+  box-sizing: border-box;
+  border: 2px solid $color-gradient2;
+  border-radius: 20px;
+  cursor: pointer;
+  font-family: "Comfortaa", sans-serif;
+  font-size: 2rem;
+  font-weight: 700;
+  text-decoration: none;
+  text-align: center;
+  color: #48610d;
+  background-image: linear-gradient(180deg, $color-play1 0%, $color-play2 100%);
+  @extend %transition;
+  &:hover {
+    outline: 0;
+    box-shadow: 0 0 10px 4px $color-play2;
+  }
+}
+
+.start-btn_hide {
+  @extend %hide;
+  height: 0;
+  font-size: 0;
+  @extend %transition;
+}
+
+.start-btn_repeat {
+  width: 50px;
+  height: 50px;
+  border: none;
+  background-image: none;
+  border-radius: 50%;
+  outline: 0;
+  background: url('../icons/repeat.svg');
+  background-repeat: no-repeat; 
+}
+
+// game progress
+.game-state-bar {
+  @extend %container-base;
+  height: 30px;
+  margin: 10px auto 0;
+  justify-content: flex-start;
+  align-items: center;
+  overflow: hidden;
+  flex-wrap: wrap;
+  // background-color: $color-second;
+}
+
+.game-state-bar__answer {
+  width: 29px;
+  height: 29px;
+  &.answer_win {
+    background: url('../icons/star-win.svg');
+    background-size: cover;
+  }  
+  &.answer_fail {
+    background: url('../icons/star.svg');
+    background-size: cover;
+  }
+}
+
+// cards
 .category__card {
   @include base-card; 
   background-image: linear-gradient(180deg, $color-gradient1 0%, $color-gradient2 73%, #ffffff 73.1% #ffffff 100%);
@@ -18,6 +92,11 @@
     transform: scale(1.05);
     @extend %transition;
   }
+}
+
+.category__card_play {
+  background-image: linear-gradient(180deg, $color-play1 0%, $color-play2 73%, #ffffff 73.1% #ffffff 100%);
+  @extend %transition;
 }
 
 .category__name {

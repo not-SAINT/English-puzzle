@@ -1,5 +1,5 @@
 const cards = [ 
-  ['Action (set A)', 'Action (set B)', 'Animal (set A)', 'Animal (set B)', 'Clothes', 'Emotions', 'Fruits'],
+  ['Action (set A)', 'Action (set B)', 'Animal (set A)', 'Animal (set B)', 'Clothes', 'Emotions', 'Fruits', 'Nature'],
   [
     {
       word: 'cry',
@@ -348,6 +348,62 @@ const cards = [
       translation: 'клубника',
       image: 'img/strawberry.jpg',
       audioSrc: 'audio/strawberry.mp3'
+    }
+  ],
+  [
+    {
+      word: 'waterfall',
+      translation: 'водопад',
+      image: 'img/waterfall.jpg',
+      audioSrc: 'audio/waterfall.mp3'
+    },
+    {
+      word: 'mountain',
+      translation: 'гора',
+      image: 'img/mountain.jpg',
+      audioSrc: 'audio/mountain.mp3'
+    },
+    {
+      word: 'rainbow',
+      translation: 'радуга',
+      image: 'img/rainbow.jpg',
+      audioSrc: 'audio/rainbow.mp3'
+    },
+    {
+      word: 'forest',
+      translation: 'лес',
+      image: 'img/forest.jpg',
+      audioSrc: 'audio/forest.mp3'
+    },
+    {
+      word: 'desert',
+      translation: 'пустыня',
+      image: 'img/desert.jpg',
+      audioSrc: 'audio/desert.mp3'
+    },
+    {
+      word: 'beach',
+      translation: 'пляж',
+      image: 'img/beach.jpg',
+      audioSrc: 'audio/beach.mp3'
+    },
+    {
+      word: 'cloud',
+      translation: 'облако',
+      image: 'img/cloud.jpg',
+      audioSrc: 'audio/cloud.mp3'
+    },
+    {
+      word: 'lightning',
+      translation: 'молния',
+      image: 'img/lightning.jpg',
+      audioSrc: 'audio/lightning.mp3'
+    },
+    {
+      word: 'moon',
+      translation: 'луна',
+      image: 'img/moon.jpg',
+      audioSrc: 'audio/moon.mp3'
     }
   ]
 ]

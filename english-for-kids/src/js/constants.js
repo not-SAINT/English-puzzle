@@ -1,12 +1,9 @@
-import cards from './cards';
-import { getIdFromStr } from './worker';
-
-const CATEGORIES = cards[0];
-const CATEGORY_IDS = cards[0].map(category => getIdFromStr(category));
-const allCards = cards.slice(1);
 const ROTATE_ICO = 'img/rotate.svg';
 
+// game options
+const VOLUME_LEVEL_DEFAULT = 0.3;
+
 export {
-  CATEGORIES, allCards, CATEGORY_IDS, ROTATE_ICO
+  ROTATE_ICO, VOLUME_LEVEL_DEFAULT
 }
 

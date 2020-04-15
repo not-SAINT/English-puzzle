@@ -1,45 +1,73 @@
-.onoffswitch {
-  position: relative; width: 100px;
-  -webkit-user-select:none; -moz-user-select:none; -ms-user-select: none;
+.toggle {
+  position: relative;
+  width: 100px;
+  height: 40px;
+  user-select: none;
 }
-.onoffswitch-checkbox {
+
+.toggle-checkbox {
   display: none;
 }
-.onoffswitch-label {
-  display: block; overflow: hidden; cursor: pointer;
-  border: 2px solid #8F8989; border-radius: 20px;
+
+.toggle-label {
+  display: block;
+  overflow: hidden;
+  cursor: pointer;
+  border: 2px solid #8f8989;
+  border-radius: 20px;
 }
-.onoffswitch-inner {
-  display: block; width: 200%; margin-left: -100%;
-  transition: margin 0.3s ease-in 0s;
+
+.toggle-inner {
+  display: block;
+  width: 200%;
+  margin-left: -100%;
+  @extend %transition;
+  &:before, 
+  &:after {
+    display: block;
+    float: left;
+    width: 50%;
+    height: 35px;
+    padding: 0;
+    line-height: 35px;
+    font-size: 17px;
+    color: white;
+    font-weight: bold;
+    box-sizing: border-box;
+  }
+  &:before {
+    content: "PLAY";
+    padding-left: 10px;
+    background-color: #ffd54c;
+    color: #996a03;
+  }
+  &:after {
+    content: "TRAIN";
+    padding-right: 10px;
+    background-color: #aef090;
+    color: #278f1a;
+    text-align: right;
+  }
 }
-.onoffswitch-inner:before, .onoffswitch-inner:after {
-  display: block; float: left; width: 50%; height: 35px; padding: 0; line-height: 35px;
-  font-size: 17px; color: white; font-family: Trebuchet, Arial, sans-serif; font-weight: bold;
-  box-sizing: border-box;
-}
-.onoffswitch-inner:before {
-  content: "PLAY";
-  padding-left: 10px;
-  background-color: #FFD54C; color: #996A03;
-}
-.onoffswitch-inner:after {
-  content: "TRAIN";
-  padding-right: 10px;
-  background-color: #AEF090; color: #278F1A;
-  text-align: right;
-}
-.onoffswitch-switch {
-  display: block; width: 25px; margin: 5px;
-  background: #FFFFFF;
-  position: absolute; top: 0; bottom: 0;
+
+.toggle-switch {
+  display: block;
+  width: 25px;
+  margin: 5px;
+  background: #ffffff;
+  position: absolute;
+  top: 0;
+  bottom: 0;
   right: 61px;
-  border: 2px solid #8F8989; border-radius: 20px;
-  transition: all 0.3s ease-in 0s; 
+  border: 2px solid #8f8989;
+  border-radius: 20px;
+  @extend %transition;
 }
-.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-inner {
+
+.toggle-checkbox:checked + .toggle-label .toggle-inner {
   margin-left: 0;
 }
-.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-switch {
-  right: 0px; 
+
+.toggle-checkbox:checked + .toggle-label .toggle-switch {
+  right: 0px;
 }

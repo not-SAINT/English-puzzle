@@ -2,6 +2,17 @@
   @include base-card-size;
   perspective: 600px;
   margin: 20px;
+  user-select: text;
+}
+
+.card-uprise {
+  @include uprise;
+  @extend %transition;
+}
+
+.card__container_disable {
+  opacity: 0.5;
+  filter: drop-shadow(0 0 5px $color-correct);  
 }
 
 .card {
@@ -13,10 +24,7 @@
   @extend %transition;
 }
 
-.card-uprise {
-  @include uprise;
-  @extend %transition;
-}
+
 
 .is-flipped {
   transform: rotateY(180deg);
@@ -52,6 +60,13 @@
   height: 73%;
   object-fit: cover;
   border-radius: 10px 10px 0 0;
+  @extend %transition;
+}
+
+.card__image_play {
+  height: 100%;
+  border-radius: 10px;
+  @extend %transition;
 }
 
 .card__rotate {
@@ -69,10 +84,22 @@
 .card__word {
   margin: 13px auto 0;
   text-align: center;
+  @extend %transition;
+}
+
+.card__word_play {
+  @extend %hide;
+  height: 0;
+  font-size: 0;
+  @extend %transition;
 }
 
 .card__front {
   background: $color-background-card;
+}
+
+.card__front_play {
+  height: 100%;
 }
 
 .card__back {

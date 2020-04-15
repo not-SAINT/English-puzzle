@@ -10,10 +10,6 @@ export default class Card {
     this.audioSrc = audioSrc;
   }
 
-  printCardInfo() {
-    console.log(`${this.category} ${this.word} ${this.translation} ${this.image} ${this.audioSrc}`);
-  }
-
   getAudioSrc() {
     return this.audioSrc;
   }
@@ -53,6 +49,7 @@ export default class Card {
 
     cardContainer.append(card);
     cardContainer.classList.add('card-uprise');
+    cardContainer.dataset.word = this.word;
 
     return cardContainer;
   }

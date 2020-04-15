@@ -1,10 +1,21 @@
-.header {
-  height: 0;
-}
+// .header {
+//   height: 0;
+// }
 
 .logo {
   height: 0;
   font-size: 0;
+}
+
+.header-container {
+  display: flex;
+  width: $container-size-l;
+  height: 80px;
+  margin: 0 auto;
+  padding: 0 20px;
+  box-sizing: border-box;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .burger {
@@ -12,8 +23,8 @@
   position: relative;
   width: 25px;
   height: 25px;
-  top: 30px;
-  left: 100px;
+  // top: 30px;
+  // left: 100px;
   z-index: 3;
   cursor: pointer;
   @extend %transition;
@@ -79,6 +90,11 @@
   // }
 }
 
+.navigation_play {
+  background: linear-gradient(0deg, $color-play2 0%, $color-play1 100%);
+  @extend %transition;
+}
+
 .open-menu {
   transform: translateX($menu-width);
   @extend %transition;
@@ -100,4 +116,9 @@
   color: $color-link-active;
   font-size: 2.7rem;
   text-shadow: 1px 3px 0 #969696, 1px 13px 5px #aba8a8;
+}
+
+.category__header {
+  margin: 0;
+  font-size: 3rem;
 }

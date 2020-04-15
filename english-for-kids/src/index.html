@@ -14,12 +14,14 @@
                 <span class="burger__line"></span>
                 <span class="burger__line"></span>
             </div>
-    
-            <div class="onoffswitch">
-                <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch">
-                <label class="onoffswitch-label" for="myonoffswitch">
-                    <span class="onoffswitch-inner"></span>
-                    <span class="onoffswitch-switch"></span>
+            <div class="category">
+                <h2 class="category__header"></h2>
+            </div>    
+            <div class="toggle">
+                <input type="checkbox" name="toggle" class="toggle-checkbox" id="toggle">
+                <label class="toggle-label" for="toggle">
+                    <span class="toggle-inner"></span>
+                    <span class="toggle-switch"></span>
                 </label>
             </div>
         </div>        
@@ -28,7 +30,16 @@
         </nav>
     </header>
     <main>
+        <div class="btn-container">
+            <button class="start-btn start-btn_hide">START GAME</button>
+            <!-- <button class="start-btn start-btn_repeat">START GAME</button> -->
+        </div> 
+        <div class="game-state-bar">
+            <!-- <span class="game-state-bar__answer answer_win"></span>
+            <span class="game-state-bar__answer answer_fail"></span> -->
+        </div>       
         <div class="container" id="container">
+            <!-- <div class="card__container card-uprise card__container_disable no-hover" data-word="pig"><div class="card"><div class="card__front"><img class="card__image card__image_play" src="img/pig.jpg" alt="pig"><h2 class="card__word card__word_play">pig<img class="card__rotate" src="img/rotate.svg" alt="rotate.ico"></h2></div><div class="card__back"><img class="card__image card__image_play" src="img/pig.jpg" alt="pig"><h2 class="card__word card__word_play">свинья</h2></div></div></div> -->
         </div>
     </main>
 </body>

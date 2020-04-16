@@ -21,10 +21,6 @@ const playSuccess = (volume = VOLUME_LEVEL_DEFAULT) => {
   playSound('audio/success.mp3', volume);
 }
 
-const gameProgress = () => {
-
-}
-
 const resetStateBar = () => {
   document.querySelector('.game-state-bar').innerHTML = '';
 }
@@ -42,6 +38,19 @@ const addAttempt = (result = 'fail') => {
   bar.prepend(star);
 }
 
+const drawWinImage = () => {
+  const container = document.querySelector('.container');
+  const winImage = createDomElement('span', 'win-image');
+  container.append(winImage);
+}
+
+const drawFailImage = () => {
+  const container = document.querySelector('.container');
+  const winImage = createDomElement('span', 'fail-image');
+  container.append(winImage);
+}
+
 export {
-  playError, playCorrect, playStart, addAttempt, resetStateBar, playSuccess, playFailure 
+  playError, playCorrect, playStart, addAttempt, resetStateBar, playSuccess, playFailure,
+  drawWinImage, drawFailImage
 };

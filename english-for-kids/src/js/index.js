@@ -20,6 +20,8 @@ let COUNT_ERRORS = 0;
 // let COUNT_CORRECT_ANSWERS = 0;
 // let COUNT_WORDS_IN_CATEGORY = 0;
 
+const FAST_WIN = 7;
+
 
 const changeAppState = () => {
   if (APP_STATE_PLAY) {
@@ -64,13 +66,26 @@ const changeAppState = () => {
   // cardWords.forEach(card => card.classList.toggle('card__word_play'));
 }
 
+const removeSelected = () => {
+  document.querySelectorAll('.card__container_disable').forEach(card => card.classList.remove('card__container_disable'));
+}
+
+const hideWordCards = () => {
+  document.querySelectorAll('.card__container').forEach((card) => card.classList.add('hide-category'));  
+}
+
+const showWordCards = () => {
+  document.querySelectorAll('.card__container').forEach((card) => card.classList.remove('hide-category'));  
+}
 
 const resetGameState = () => {
   LAST_SOUND = '';
   GUESSED_WORD = '';
   CURRENT_CATEGORY_LEFT = [...CURRENT_CATEGORY];
-  COUNT_CORRECT_ANSWERS = 0;
+  // COUNT_CORRECT_ANSWERS = 0;
   COUNT_ERRORS = 0;
+  removeSelected();
+  // showWordCards();
 }
 
 const showStartBtn = () => {
@@ -171,17 +186,15 @@ const transformStartBtn = () => {
 
 const stopGame = () => {
   GAME_STATE = false;
-  // if (!GAME_STATE) {
-    game.resetStateBar();
-    COUNT_ERRORS = 0;    
-  // }  
+  game.resetStateBar();
+  COUNT_ERRORS = 0;    
   transformStartBtn();
   addStartGameListener();
   resetGameState();
 }
 
 const createCategories = () => {
-  // CONTAINER.innerHTML = '';
+  CONTAINER.innerHTML = '';
 
   CATEGORIES.forEach((caption) => {
     const newCard = createCategoryCard(caption);
@@ -189,11 +202,9 @@ const createCategories = () => {
   });
 
   APP_MAIN_PAGE = true;
-  // GAME_STATE = false;
   changeAppState();
   hideStartBtn();
   setCategoryHeader('');
-  // transformStartBtn();
   stopGame();
 }
 
@@ -205,6 +216,8 @@ const switchMenu = () => {
 const hideCategories = () => {
   document.querySelectorAll('.category__card').forEach((card) => card.classList.add('hide-category'));  
 }
+
+
 
 // const showCategories = () => {
 //   document.querySelectorAll('.category__card').forEach((card) => card.classList.remove('hide-category'));
@@ -303,28 +316,41 @@ const getSoundSrc = (word) => {
 }
 
 const gameOver = () => {
-  console.log('Game over');    
-  console.log(COUNT_ERRORS);
-
   if (COUNT_ERRORS === 0) {
     game.playSuccess();
   } else {
     game.playFailure();
   }
 
-  stopGame();
+  hideWordCards();
+  hideStartBtn();
+
+  setTimeout(() => { CONTAINER.innerHTML = ''; }, 1000);
+
+  setTimeout(() => {
+    if (COUNT_ERRORS === 0) {
+      game.drawWinImage();
+    } else {
+      game.drawFailImage();
+    }
+    
+    stopGame();
+  }, 1500);
+
+  setTimeout(createCategories, 4500);
 }
 
 const getRandomSoundFromSelectedCategory = () => {
   
   const wordsLeft = CURRENT_CATEGORY_LEFT.length;
 
-  if (wordsLeft > 6) {
+  if (wordsLeft > FAST_WIN) {
     const randomIndex = getRandomIndex(CURRENT_CATEGORY_LEFT.length);
     const selectedCard = CURRENT_CATEGORY_LEFT.splice(randomIndex, 1);
     LAST_SOUND = selectedCard[0].audioSrc;
     GUESSED_WORD = selectedCard[0].word;
   } else {
+    LAST_SOUND = '';
     gameOver ();
   }
 
@@ -338,7 +364,7 @@ const playRandomSound = () => {
     } 
 }
 
-const setUnselectedCard = (wordCard) => {
+const setGuessedCard = (wordCard) => {
   wordCard.classList.add('card__container_disable');
 }
 
@@ -347,9 +373,8 @@ const tryGuess = (wordCard) => {
   if (word === GUESSED_WORD) {
     game.playCorrect();
     game.addAttempt('win');
-    COUNT_CORRECT_ANSWERS += 1;
     setTimeout(playRandomSound, 1000);
-    setUnselectedCard(wordCard);
+    setGuessedCard(wordCard);
   } else {
     game.playError();
     game.addAttempt('fail');
@@ -412,6 +437,7 @@ const startGame = () => {
 
   GAME_STATE = true;
   resetGameState();
+  showWordCards();
   // change btn
   removeStartGameListener();
   transformStartBtn();

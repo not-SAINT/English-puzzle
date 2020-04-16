@@ -148,3 +148,19 @@
   margin: 13px auto 0;
   text-align: center;
 }
+
+.win-image {
+  width: 400px;
+  height: 400px;
+  background: url('../img/win.jpg');
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.fail-image {
+  width: 400px;
+  height: 400px;
+  background: url('../img/fail.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+}

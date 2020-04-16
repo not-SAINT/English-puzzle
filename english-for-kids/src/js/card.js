@@ -48,7 +48,7 @@ export default class Card {
     card.append(cardBack);
 
     cardContainer.append(card);
-    cardContainer.classList.add('card-uprise');
+    // cardContainer.classList.add('card-uprise');
     cardContainer.dataset.word = this.word;
 
     return cardContainer;

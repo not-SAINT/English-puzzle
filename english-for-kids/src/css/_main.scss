@@ -1,12 +1,15 @@
 .container {
   @extend %container-base;
-  // height: 600px;
+  height: auto;
   position: relative;
   margin: 30px auto 0;
   justify-content: space-around;
   align-content: flex-start;
   flex-wrap: wrap;
   user-select: none;
+  @include media-laptop {
+    max-width: 98vw;
+  }
 }
 
 .btn-container {
@@ -14,6 +17,9 @@
   width: $container-size-l;
   margin: 0 auto;
   justify-content: center;
+  @include media-laptop {
+    max-width: 95vw;
+  }
 }
 
 // button play
@@ -36,6 +42,9 @@
   &:hover {
     outline: 0;
     box-shadow: 0 0 10px 4px $color-play2;
+  }
+  @include media-laptop {
+    margin: 10px auto;
   }
 }
 
@@ -66,7 +75,10 @@
   align-items: center;
   overflow: hidden;
   flex-wrap: wrap;
-  // background-color: $color-second;
+  @include media-laptop {
+    max-width: 95vw;
+    padding: 0 20px;
+  }
 }
 
 .game-state-bar__answer {
@@ -91,6 +103,15 @@
   &:hover {
     transform: scale(1.05);
     @extend %transition;
+  }
+  @include media-laptop {
+    width: 33%;
+  }
+  @include media-tablet {
+    width: 47%;
+  }
+  @include media-mobile {
+    width: 70%;
   }
 }
 

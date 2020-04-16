@@ -3,6 +3,15 @@
   perspective: 600px;
   margin: 20px;
   user-select: text;
+  @include media-laptop {
+    width: 30%;
+  }
+  @include media-tablet {
+    width: 47%;
+  }
+  @include media-mobile {
+    width: 70%;
+  }
 }
 
 .card-uprise {
@@ -23,8 +32,6 @@
   cursor: pointer;
   @extend %transition;
 }
-
-
 
 .is-flipped {
   transform: rotateY(180deg);

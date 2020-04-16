@@ -1,14 +1,13 @@
 import '../css/style.css';
 import '../css/style.scss';
 
-import { VOLUME_LEVEL_DEFAULT } from './constants';
+import * as con from './constants';
 import { CATEGORIES, allCards, CATEGORY_IDS } from './loadcards';
 import { createDomElement, getRandomIndex, getIdFromStr, playSound } from './worker';
 import * as game from './game';
 import Card from './card';
 
 let CONTAINER = {};
-let VOLUME_LEVEL = 1;
 let CURRENT_CATEGORY = [];
 let APP_STATE_PLAY = false;
 let APP_MAIN_PAGE = false;
@@ -17,11 +16,6 @@ let LAST_SOUND = '';
 let CURRENT_CATEGORY_LEFT = '';
 let GUESSED_WORD = '';
 let COUNT_ERRORS = 0;
-// let COUNT_CORRECT_ANSWERS = 0;
-// let COUNT_WORDS_IN_CATEGORY = 0;
-
-const FAST_WIN = 7;
-
 
 const changeAppState = () => {
   if (APP_STATE_PLAY) {
@@ -51,19 +45,6 @@ const changeAppState = () => {
     const cardWords = document.querySelectorAll('.card__word');
     cardWords.forEach(card => card.classList.remove('card__word_play'));
   }
-
-  // // category
-  // const categotyCards = document.querySelectorAll('.category__card');
-  // categotyCards.forEach(card => card.classList.toggle('category__card_play'));
-
-  // // menu
-  // document.querySelector('.navigation').classList.toggle('navigation_play');
-
-  // // word_card
-  // const cardImage = document.querySelectorAll('.card__image');
-  // cardImage.forEach(card => card.classList.toggle('card__image_play'));
-  // const cardWords = document.querySelectorAll('.card__word');
-  // cardWords.forEach(card => card.classList.toggle('card__word_play'));
 }
 
 const removeSelected = () => {
@@ -82,10 +63,8 @@ const resetGameState = () => {
   LAST_SOUND = '';
   GUESSED_WORD = '';
   CURRENT_CATEGORY_LEFT = [...CURRENT_CATEGORY];
-  // COUNT_CORRECT_ANSWERS = 0;
   COUNT_ERRORS = 0;
   removeSelected();
-  // showWordCards();
 }
 
 const showStartBtn = () => {
@@ -149,7 +128,6 @@ const setCategoryHeader = (categoryName) => {
 }
 
 const onStartGame = () => {
-
   // eslint-disable-next-line no-use-before-define
   startGame();
 }
@@ -182,7 +160,6 @@ const transformStartBtn = () => {
     addStartGameListener();
   };
 }
-
 
 const stopGame = () => {
   GAME_STATE = false;
@@ -217,12 +194,6 @@ const hideCategories = () => {
   document.querySelectorAll('.category__card').forEach((card) => card.classList.add('hide-category'));  
 }
 
-
-
-// const showCategories = () => {
-//   document.querySelectorAll('.category__card').forEach((card) => card.classList.remove('hide-category'));
-// }
-
 const selectActiveLink = (target) => {
   document.querySelectorAll('.navigation__link').forEach(link => link.classList.remove('link_selected'));
   target.classList.add('link_selected');
@@ -246,8 +217,6 @@ const findLinkById = (id) => {
   return links.find(link => getIdFromStr(link.innerText) === id);
 }
 
-
-
 const createSelectedCategory = (id) => {
   const categoryIndex = getSelectedCategoryIndex(id);
   const selectedCategory = allCards[categoryIndex];
@@ -264,7 +233,6 @@ const createSelectedCategory = (id) => {
   setCategoryHeader(CATEGORIES[categoryIndex]);
 
   APP_MAIN_PAGE = false;
-  // GAME_STATE = false;
   changeAppState();
   toggleStartBtn();
   stopGame();
@@ -281,10 +249,8 @@ const onLinkClick = ({target}) => {
     const categoryId = getIdFromStr(target.innerText);
 
     if (target.innerText === 'Home') {
-      // showCategories();
       createCategories();
     } else {
-      // hideCategories();
       createSelectedCategory(categoryId);
     }    
   }
@@ -317,9 +283,9 @@ const getSoundSrc = (word) => {
 
 const gameOver = () => {
   if (COUNT_ERRORS === 0) {
-    game.playSuccess();
+    playSound(con.SOUND_WIN_GAME);
   } else {
-    game.playFailure();
+    playSound(con.SOUND_FAIL_GAME);
   }
 
   hideWordCards();
@@ -344,7 +310,7 @@ const getRandomSoundFromSelectedCategory = () => {
   
   const wordsLeft = CURRENT_CATEGORY_LEFT.length;
 
-  if (wordsLeft > FAST_WIN) {
+  if (wordsLeft > 0) {
     const randomIndex = getRandomIndex(CURRENT_CATEGORY_LEFT.length);
     const selectedCard = CURRENT_CATEGORY_LEFT.splice(randomIndex, 1);
     LAST_SOUND = selectedCard[0].audioSrc;
@@ -371,17 +337,16 @@ const setGuessedCard = (wordCard) => {
 const tryGuess = (wordCard) => {
   const {word} = wordCard.dataset;
   if (word === GUESSED_WORD) {
-    game.playCorrect();
+    playSound(con.SOUND_CORRECT_ANSWER);
     game.addAttempt('win');
     setTimeout(playRandomSound, 1000);
     setGuessedCard(wordCard);
   } else {
-    game.playError();
+    playSound(con.SOUND_WRONG_ANSWER);
     game.addAttempt('fail');
     COUNT_ERRORS += 1;
   }  
 }
-
 
 const onContainerClick = ({target}) => {
   const categoryCard = target.closest('.category__card');
@@ -423,7 +388,6 @@ const onContainerClick = ({target}) => {
   }
 }
 
-
 const onToggleClick = ({target}) => {
   APP_STATE_PLAY = target.checked;
   changeAppState();
@@ -432,9 +396,7 @@ const onToggleClick = ({target}) => {
   stopGame();
 }
 
-
 const startGame = () => {
-
   GAME_STATE = true;
   resetGameState();
   showWordCards();
@@ -442,15 +404,12 @@ const startGame = () => {
   removeStartGameListener();
   transformStartBtn();
 
-  game.playStart(VOLUME_LEVEL);
+  playSound(con.SOUND_START_GAME);
 
-  // play random sound
   setTimeout(() => {
     playRandomSound();
-  }, 3000);
-  
+  }, 3000);  
 }
-
 
 const setHandlers = () => {
   document.querySelector('.burger').addEventListener('click', onBurgerClick);
@@ -463,7 +422,6 @@ const setHandlers = () => {
 
 window.onload = () => {
   CONTAINER = document.getElementById('container');
-  VOLUME_LEVEL = VOLUME_LEVEL_DEFAULT;
   setHandlers();
   buildMenu();
   createCategories();

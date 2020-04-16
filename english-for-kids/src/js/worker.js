@@ -1,3 +1,5 @@
+import { VOLUME_LEVEL_DEFAULT } from './constants';
+
 const createDomElement = (elementName = 'div', className) => {
   const newElement = document.createElement(elementName);
   if (className) {
@@ -15,7 +17,7 @@ const getIdFromStr = (value) => {
   return value.replace(/[^a-z0-9]/gmi, '');
 }
 
-const playSound = (source, volume = 0.3) => {
+const playSound = (source, volume = VOLUME_LEVEL_DEFAULT) => {
   if (source) {
     const audio = new Audio();
     audio.src = source;

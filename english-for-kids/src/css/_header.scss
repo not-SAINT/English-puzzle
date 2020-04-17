@@ -70,8 +70,7 @@
 
 .navigation {
   width: $menu-width;
-  height: 100vh;
-  padding-top: 100px;
+  height: 100%;
   position: absolute;
   top: 0;
   left: -$menu-width;
@@ -81,9 +80,6 @@
   background: linear-gradient(0deg, $color-gradient2 0%, $color-gradient1 100%);
   box-shadow: 0px 10px 13px -7px $color-shadow, 5px 5px 15px 5px #00000000;
   @extend %transition;
-  @include media-laptop {
-    height: 100vh;
-  }
 }
 
 .navigation_play {
@@ -106,6 +102,10 @@
   &:hover {
     color: $color-link-active;
   }
+}
+
+.navigation__link:first-child {
+  margin-top: 120px;
 }
 
 .link_selected {

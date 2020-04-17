@@ -34,7 +34,6 @@ export default class Card {
     ico.alt = 'rotate.ico';
 
     word.append(ico);
-
     
     cardFront.append(word);
 
@@ -48,7 +47,6 @@ export default class Card {
     card.append(cardBack);
 
     cardContainer.append(card);
-    // cardContainer.classList.add('card-uprise');
     cardContainer.dataset.word = this.word;
 
     return cardContainer;

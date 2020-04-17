@@ -91,6 +91,7 @@ const buildMenu = () => {
     newLink.innerText = caption;
     menu.append(newLink);
   });
+  document.querySelector('.navigation__link:first-child').classList.add('link_selected');
 }
 
 const getGategoryBackgroundImg = (categoryName) => {
@@ -303,7 +304,11 @@ const gameOver = () => {
     stopGame();
   }, 1500);
 
-  setTimeout(createCategories, 4500);
+  setTimeout(() => { 
+    createCategories();
+    const home = document.querySelector('.navigation__link:first-child');
+    selectActiveLink(home);
+  }, 4500);
 }
 
 const getRandomSoundFromSelectedCategory = () => {

@@ -8,12 +8,11 @@
   width: $container-size-l;
   height: 80px;
   margin: 0 auto;
-  padding: 0 20px;
   box-sizing: border-box;
   justify-content: space-between;
-  align-items: center;
+  align-items: center;  
   @include media-laptop {
-    width: 100vw;
+    width: 95vw;
   }
 }
 
@@ -22,7 +21,7 @@
   position: relative;
   width: 25px;
   height: 25px;
-  margin-right: 75px;
+  margin-left: 40px;
   z-index: 3;
   cursor: pointer;
   @extend %transition;

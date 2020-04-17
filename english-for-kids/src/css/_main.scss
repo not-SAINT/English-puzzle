@@ -8,7 +8,7 @@
   flex-wrap: wrap;
   user-select: none;
   @include media-laptop {
-    max-width: 98vw;
+    max-width: 95vw;
   }
 }
 
@@ -78,6 +78,7 @@
   @include media-laptop {
     max-width: 95vw;
     padding: 0 20px;
+    box-sizing: border-box;
   }
 }
 

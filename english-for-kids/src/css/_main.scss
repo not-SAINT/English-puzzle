@@ -1,0 +1,188 @@
+.container {
+  @extend %container-base;
+  height: auto;
+  position: relative;
+  margin: 30px auto 0;
+  justify-content: space-around;
+  align-content: flex-start;
+  flex-wrap: wrap;
+  user-select: none;
+  @include media-laptop {
+    max-width: 95vw;
+  }
+}
+
+.btn-container {
+  display: flex;
+  width: $container-size-l;
+  margin: 0 auto;
+  justify-content: center;
+  @include media-laptop {
+    max-width: 95vw;
+  }
+}
+
+// button play
+.start-btn {
+  width: 300px;
+  height: 50px;
+  margin: 0 auto;
+  box-sizing: border-box;
+  border: 2px solid $color-gradient2;
+  border-radius: 20px;
+  cursor: pointer;
+  font-family: "Comfortaa", sans-serif;
+  font-size: 2rem;
+  font-weight: 700;
+  text-decoration: none;
+  text-align: center;
+  color: #48610d;
+  background-image: linear-gradient(180deg, $color-play1 0%, $color-play2 100%);
+  @extend %transition;
+  &:hover {
+    outline: 0;
+    box-shadow: 0 0 10px 4px $color-play2;
+  }
+  @include media-laptop {
+    margin: 10px auto;
+  }
+}
+
+.start-btn_hide {
+  @extend %hide;
+  height: 0;
+  font-size: 0;
+  @extend %transition;
+}
+
+.start-btn_repeat {
+  width: 50px;
+  height: 50px;
+  border: none;
+  background-image: none;
+  border-radius: 50%;
+  outline: 0;
+  background: url('../icons/repeat.svg');
+  background-repeat: no-repeat; 
+}
+
+// game progress
+.game-state-bar {
+  @extend %container-base;
+  height: 30px;
+  margin: 10px auto 0;
+  justify-content: flex-start;
+  align-items: center;
+  overflow: hidden;
+  flex-wrap: wrap;
+  @include media-laptop {
+    max-width: 95vw;
+    padding: 0 20px;
+    box-sizing: border-box;
+  }
+}
+
+.game-state-bar__answer {
+  width: 29px;
+  height: 29px;
+  &.answer_win {
+    background: url('../icons/star-win.svg');
+    background-size: cover;
+  }  
+  &.answer_fail {
+    background: url('../icons/star.svg');
+    background-size: cover;
+  }
+}
+
+// cards
+.category__card {
+  @include base-card; 
+  background-image: linear-gradient(180deg, $color-gradient1 0%, $color-gradient2 73%, #ffffff 73.1% #ffffff 100%);
+  user-select: none;
+
+  &:hover {
+    transform: scale(1.05);
+    @extend %transition;
+  }
+  @include media-laptop {
+    width: 33%;
+  }
+  @include media-tablet {
+    width: 47%;
+  }
+  @include media-mobile {
+    width: 70%;
+  }
+}
+
+.category__card_play {
+  background-image: linear-gradient(180deg, $color-play1 0%, $color-play2 73%, #ffffff 73.1% #ffffff 100%);
+  @extend %transition;
+}
+
+.category__name {
+  margin: 18px auto 0;
+  text-align: center;
+}
+
+.category__image {
+  display: block;
+  width: 80%;
+  height: 60%;
+  margin: 10px auto;
+  border-radius: 50%;
+  border: 5px solid $color-border2; 
+}
+
+.hide-category {
+  opacity: 0;
+  visibility: hidden;
+  @extend %transition;
+}
+
+.word__Card {
+  @include base-card;
+  position: relative;
+  background-color: $color-border2;
+}
+
+.word__image {
+  display: block;
+  width: 100%;
+  height: 73%;
+  object-fit: cover;
+  border-radius: 10px 10px 0 0;
+}
+
+.word__ico {
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  top: calc(100% - 43px);
+  right: 10px;
+  &:hover {
+    filter: drop-shadow(0 0 3px $color-link);
+  }
+}
+
+.word {
+  margin: 13px auto 0;
+  text-align: center;
+}
+
+.win-image {
+  width: 400px;
+  height: 400px;
+  background: url('../img/win.jpg');
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.fail-image {
+  width: 400px;
+  height: 400px;
+  background: url('../img/fail.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+}

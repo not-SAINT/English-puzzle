@@ -1,0 +1,121 @@
+.logo {
+  height: 0;
+  font-size: 0;
+}
+
+.header-container {
+  display: flex;
+  width: $container-size-l;
+  height: 80px;
+  margin: 0 auto;
+  box-sizing: border-box;
+  justify-content: space-between;
+  align-items: center;  
+  @include media-laptop {
+    width: 95vw;
+  }
+}
+
+.burger {
+  display: block;
+  position: relative;
+  width: 25px;
+  height: 25px;
+  margin-left: 40px;
+  z-index: 3;
+  cursor: pointer;
+  @extend %transition;
+  &:hover {
+    transform: scale(1.3);
+    @extend %transition;
+  }
+}
+
+.burger__line {
+  display: block;
+  width: 100%;
+  height: 3px;
+  content: "";
+  position: absolute;
+  top: 11px;
+  background-color: $color-burger;
+  @extend %transition;
+  &:nth-child(odd) {
+    width: 100%;
+    height: 3px;
+    content: "";
+    position: absolute;
+    top: 0;
+    background-color: $color-burger;
+    @extend %transition;
+  }
+  &:nth-child(3)  {
+    top: 22px;
+  }
+}
+
+.active {
+  transform: scale(0);
+  @extend %transition;
+  &:nth-child(odd) {
+    @extend %transition;
+    transform: rotate(45deg) scale(1);
+    top: 11px;
+  }
+  &:nth-child(3) {
+    transform: rotate(-45deg) scale(1);
+  }
+}
+
+.navigation {
+  width: $menu-width;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: -$menu-width;
+  z-index: 2;
+  background-color: $color-main;
+  overflow: auto;
+  background: linear-gradient(0deg, $color-gradient2 0%, $color-gradient1 100%);
+  box-shadow: 0px 10px 13px -7px $color-shadow, 5px 5px 15px 5px #00000000;
+  @extend %transition;
+}
+
+.navigation_play {
+  background: linear-gradient(0deg, $color-play2 0%, $color-play1 100%);
+  @extend %transition;
+}
+
+.open-menu {
+  transform: translateX($menu-width);
+  @extend %transition;
+}
+
+.navigation__link {
+  display: block;
+  margin-top: 20px;
+  font-size: 2.5rem;
+  text-align: center;
+  color: $color-link;
+  cursor: pointer;  
+  &:hover {
+    color: $color-link-active;
+  }
+}
+
+.navigation__link:first-child {
+  margin-top: 120px;
+}
+
+.link_selected {
+  color: $color-link-active;
+  font-size: 2.7rem;
+  text-shadow: 1px 3px 0 #969696, 1px 13px 5px #aba8a8;
+}
+
+.category__header {
+  width: 250px;
+  margin: 0 auto 15px;
+  font-size: 3rem;
+  text-align: center;
+}

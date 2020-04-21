@@ -1,0 +1,74 @@
+.toggle {
+  position: relative;
+  width: 100px;
+  height: 40px;
+  margin-right: 40px;
+  user-select: none;
+}
+
+.toggle-checkbox {
+  display: none;
+}
+
+.toggle-label {
+  display: block;
+  overflow: hidden;
+  cursor: pointer;
+  border: 2px solid #8f8989;
+  border-radius: 20px;
+}
+
+.toggle-inner {
+  display: block;
+  width: 200%;
+  margin-left: -100%;
+  @extend %transition;
+  &:before, 
+  &:after {
+    display: block;
+    float: left;
+    width: 50%;
+    height: 35px;
+    padding: 0;
+    line-height: 35px;
+    font-size: 17px;
+    color: white;
+    font-weight: bold;
+    box-sizing: border-box;
+  }
+  &:before {
+    content: "PLAY";
+    padding-left: 10px;
+    background-color: #ffd54c;
+    color: #996a03;
+  }
+  &:after {
+    content: "TRAIN";
+    padding-right: 10px;
+    background-color: #aef090;
+    color: #278f1a;
+    text-align: right;
+  }
+}
+
+.toggle-switch {
+  display: block;
+  width: 25px;
+  margin: 5px;
+  background: #ffffff;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 61px;
+  border: 2px solid #8f8989;
+  border-radius: 20px;
+  @extend %transition;
+}
+
+.toggle-checkbox:checked + .toggle-label .toggle-inner {
+  margin-left: 0;
+}
+
+.toggle-checkbox:checked + .toggle-label .toggle-switch {
+  right: 0px;
+}

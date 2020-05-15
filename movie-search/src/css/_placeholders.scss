@@ -1,0 +1,15 @@
+%text-overflow {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  word-wrap: break-word;
+}
+
+%transition {
+  transition: all 0.5s ease;
+}
+
+%hide {
+  opacity: 0;
+  visibility: hidden;
+}

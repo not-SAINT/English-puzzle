@@ -1,0 +1,66 @@
+.movie-card {
+  width: 100%;
+  height: 500px;
+  position: relative;
+  font-weight: 700;
+  text-align: center;
+  border: 1px solid $color-shadow;
+  border-radius: 4px;
+  user-select: none;
+  opacity: 0;
+  transition: opacity 1.5s ease;
+  background-color: #ffffff;
+
+  &__title {
+    margin: 15px 25px;
+    font-size: 1.5rem;
+    @extend %text-overflow;
+  }
+
+  &__link {
+    text-decoration: none;
+    color: $color-link-active;
+    
+    &:hover {
+      color: $color-link-hover;
+    }
+  }
+
+  &__poster {
+    display: block;
+    width: 100%;
+    height: 80%;
+    margin-bottom: 15px;
+    object-fit: cover;
+    box-shadow: 0px 0px 14px 7px $color-shadow inset;
+  }
+
+  &__year {
+    margin-top: 20px;
+    font-size: 1.5rem;
+  }
+
+  &__rating {
+    position: absolute;
+    font-size: 1.5rem;
+    right: 5px;
+    bottom: 5px;
+  }
+
+  &__rating::before {
+    display: inline-block;
+    width: 28px;
+    height: 28px;
+    position: absolute;
+    bottom: -3px;
+    right: 46px;
+    content: "";
+    background: url("../img/icons/rating.svg") no-repeat;
+    background-size: contain;
+  }
+
+  &__show {
+    opacity: 1;
+    transition: opacity 1.5s ease;
+  }
+}

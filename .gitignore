@@ -114,4 +114,4 @@ dist
 .vscode
 
 # production
-/build
+build

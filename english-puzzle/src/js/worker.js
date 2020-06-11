@@ -1,4 +1,9 @@
-import { LOCAL_STORAGE_KEY_PART } from './options';
+import {
+  LOCAL_STORAGE_KEY_PART,
+  AUTOPLAY_KEY,
+  DEFAULT_APP_PROMTS,
+  TRANSLATE_KEY,
+} from './options';
 
 export const createDomElement = (elementName = 'div', className) => {
   const newElement = document.createElement(elementName);
@@ -37,4 +42,25 @@ export const restoreFromLocalStorage = (key) => {
     return JSON.parse(localStorage.getItem(`${LOCAL_STORAGE_KEY_PART}${key}`));
   }
   return undefined;
+};
+
+export const restoreAppPromts = () => {
+  const autoplay = restoreFromLocalStorage(AUTOPLAY_KEY);
+  const translate = restoreFromLocalStorage(TRANSLATE_KEY);
+
+  const promts = {};
+
+  if (autoplay !== undefined) {
+    promts.autoplay = autoplay;
+  } else {
+    promts.autoplay = DEFAULT_APP_PROMTS.autoplay;
+  }
+
+  if (translate !== undefined) {
+    promts.translate = translate;
+  } else {
+    promts.translate = DEFAULT_APP_PROMTS.translate;
+  }
+
+  return promts;
 };

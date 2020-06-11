@@ -1,23 +1,28 @@
 import * as handlers from './handlers';
 import { getRoundDataTest } from './backend';
 import { filterDataFromBackend, playSound } from './utils';
-import { VOICE_URL, AUTOPLAY_KEY } from './options';
-import { restoreFromLocalStorage, saveToLocalStorage } from './worker';
-import { setAutoPlayButton } from './workWithDom';
+import { VOICE_URL, AUTOPLAY_KEY, TRANSLATE_KEY } from './options';
+import { saveToLocalStorage, restoreAppPromts } from './worker';
+import {
+  setAutoPlayButton,
+  setPromtButtons,
+  clearTranslate,
+} from './workWithDom';
 import Round from './Round';
 
 import '../css/style.css';
 import '../css/style.scss';
 
 let CUR_ROUND;
-let AUTO_PLAY;
+// let AUTO_PLAY;
+let PROMTS;
 
 const startNewRound = async (level, page) => {
   // get data
   const data = await getRoundDataTest();
   const filteredData = filterDataFromBackend(data);
   // create blocks
-  CUR_ROUND = new Round(filteredData);
+  CUR_ROUND = new Round(filteredData, PROMTS);
 
   CUR_ROUND.loadCurrSentence();
   // create
@@ -39,34 +44,36 @@ const moveWordToLine = ({ target }) => {
 
   if (target.classList.contains('word-card__moveable')) {
     CUR_ROUND.moveWord(target);
-    // const r = moveWordToLine();
-    // console.log(r);
-
-    //
-
-    // target.remove();
   }
-  // const clickedElement = target.querySelector('.word-card');
-  // clickedElement.remove();
   return undefined;
 };
 
 const playSentence = () => {
-  // const audio = CUR_ROUND.currentSentenceSound;
   const url = `${VOICE_URL}${CUR_ROUND.currentSentenceSound}`;
   playSound(url);
-  // console.log(url);
 };
 
 const checkWords = () => {
   CUR_ROUND.checkCurrentWordsPosition();
 };
 
-const onAutoPlayClick = () => {
-  AUTO_PLAY = !AUTO_PLAY;
+const changePromt = (promts, promtName, promtKey) => {
+  const res = promts;
+  res[promtName] = !promts[promtName];
+  saveToLocalStorage(promtKey, res[promtName]);
+  setPromtButtons(res);
+  return res;
+};
 
-  saveToLocalStorage(AUTOPLAY_KEY, AUTO_PLAY);
-  setAutoPlayButton(AUTO_PLAY);
+const onAutoPlayClick = () => {
+  PROMTS = changePromt(PROMTS, 'autoplay', AUTOPLAY_KEY);
+};
+
+const onTranslateClick = () => {
+  PROMTS = changePromt(PROMTS, 'translate', TRANSLATE_KEY);
+  if (!PROMTS.translate) {
+    clearTranslate();
+  }
 };
 
 const checkSomething = () => {
@@ -93,6 +100,9 @@ const setHandlers = () => {
   document.getElementById('puzzle').addEventListener('click', moveWordToLine);
 
   document.getElementById('pronounce').addEventListener('click', playSentence);
+  document
+    .getElementById('translate')
+    .addEventListener('click', onTranslateClick);
 
   document.getElementById('check').addEventListener('click', checkWords);
   document
@@ -107,14 +117,9 @@ const setHandlers = () => {
 };
 
 const loadState = () => {
-  const restoredAutoPlay = restoreFromLocalStorage(AUTOPLAY_KEY);
+  PROMTS = restoreAppPromts();
 
-  if (restoredAutoPlay !== undefined) {
-    AUTO_PLAY = restoredAutoPlay;
-  } else {
-    AUTO_PLAY = true;
-  }
-  setAutoPlayButton(AUTO_PLAY);
+  setPromtButtons(PROMTS);
 };
 
 window.onload = () => {

@@ -3,14 +3,17 @@ import {
   ROUND_SIZE,
   CARD_MARGIN,
   START_POS_WORDS,
+  VOICE_URL,
 } from './options';
-import { getWords } from './utils';
+import { getWords, playSound } from './utils';
 
 import * as myDom from './workWithDom';
 
 export default class Round {
-  constructor(data) {
+  constructor(data, prompts) {
     this.data = data;
+    this.promts = prompts;
+
     this.currentStep = 0;
     this.currentStepNextCardPos = 0;
     this.currentStepTop = 0;
@@ -23,6 +26,7 @@ export default class Round {
     this.currentSentence = '';
     this.currentStepComplete = false;
     this.currentSentenceSound = '';
+    this.currentSentenceTranslate = '';
   }
 
   // setStartRoundValues() {
@@ -32,7 +36,7 @@ export default class Round {
   // }
 
   loadCurrSentence() {
-    const { text, audio } = this.data[this.currentStep];
+    const { text, audio, translate } = this.data[this.currentStep];
     const words = getWords(text);
 
     myDom.clearWordsField();
@@ -41,7 +45,10 @@ export default class Round {
 
     this.currentSentence = words;
     this.currentSentenceSound = audio;
+    this.currentSentenceTranslate = translate;
     this.currentStepTop = this.currentStep * this.lineHeight;
+
+    this.showPromts();
   }
 
   moveWord(wordCard) {
@@ -130,5 +137,20 @@ export default class Round {
     if (!this.currentStepComplete) {
       myDom.setWords(this.currentSentence, this.currentStepTop);
     }
+  }
+
+  showPromts(isChosen = true) {
+    // autoplay
+    if (isChosen && this.promts.autoplay) {
+      const url = `${VOICE_URL}${this.currentSentenceSound}`;
+      playSound(url);
+    }
+
+    // translate
+    if (isChosen && this.promts.translate) {
+      myDom.showTranslate(this.currentSentenceTranslate);
+    }
+
+    // background
   }
 }

@@ -155,6 +155,26 @@ export const setAutoPlayButton = (autoplay) => {
   }
 };
 
+export const setPromtButtons = (promts) => {
+  const keys = Object.keys(promts);
+
+  keys.forEach((key) => {
+    const btn = document.getElementById(key);
+    if (promts[key]) {
+      btn.classList.add('tooltip__btn_selected');
+    } else {
+      btn.classList.remove('tooltip__btn_selected');
+    }
+  });
+
+  //   const btn = document.getElementById('autoplay');
+  //   if (autoplay) {
+  //     btn.classList.add('tooltip__btn_selected');
+  //   } else {
+  //     btn.classList.remove('tooltip__btn_selected');
+  //   }
+};
+
 export const clearUnusedWords = () => {
   document.querySelectorAll('.word-card__moveable').forEach((card) => {
     if (

@@ -42,7 +42,7 @@
     background-size: contain;
     background-position: center;
 
-    &_autoplay {
+    &_pronounce {
       background-image: url('./../img/icons/play-solid.svg');
     }
 
@@ -50,7 +50,7 @@
       background-image: url('./../img/icons/language-solid.svg');
     }
 
-    &_pronounce {
+    &_autoplay {
       background-image: url('./../img/icons/music-solid.svg');
     }
 

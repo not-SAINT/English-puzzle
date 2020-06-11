@@ -17,3 +17,9 @@ export const VOLUME_LEVEL_DEFAULT = 0.3;
 
 export const LOCAL_STORAGE_KEY_PART = 'english-puzzle-not2020-';
 export const AUTOPLAY_KEY = 'autoplay';
+export const TRANSLATE_KEY = 'translate';
+export const DEFAULT_APP_PROMTS = {
+  autoplay: true,
+  translate: true,
+  background: false,
+};

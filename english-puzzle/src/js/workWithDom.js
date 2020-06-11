@@ -53,13 +53,13 @@ export const clearWordsField = () => {
   document.getElementById('words').innerHTML = '';
 };
 
-export const generateNewLinePuzzle = () => {
-  const field = document.getElementById('puzzle');
-  const newLine = createDomElement('div', 'puzzle-line');
-  newLine.style.height = `${UTILS.getPuzzleLineHeigth()}px`;
+// export const generateNewLinePuzzle = () => {
+//   const field = document.getElementById('puzzle');
+//   const newLine = createDomElement('div', 'puzzle-line');
+//   newLine.style.height = `${UTILS.getPuzzleLineHeigth()}px`;
 
-  field.append(newLine);
-};
+//   field.append(newLine);
+// };
 
 export const getCurrentLineWords = () => {
   const words = [];
@@ -153,4 +153,99 @@ export const setAutoPlayButton = (autoplay) => {
   } else {
     btn.classList.remove('tooltip__btn_selected');
   }
+};
+
+export const clearUnusedWords = () => {
+  document.querySelectorAll('.word-card__moveable').forEach((card) => {
+    if (
+      !card.classList.contains('word-card__preview') &&
+      !card.classList.contains('word-card__mounted')
+    ) {
+      card.remove();
+    }
+  });
+};
+
+export const saveCardsPosition = () => {
+  document.querySelectorAll('.word-card__moveable').forEach((card) => {
+    card.classList.remove('word-card__moveable');
+    card.classList.remove('word-card__preview');
+    card.classList.add('word-card__mounted');
+  });
+};
+
+export const moveCardTo = (card, top, left) => {
+  const element = card;
+  let elementTop = top;
+  let elementLeft = left;
+
+  if (`${top}`.includes('px')) {
+    elementTop = elementTop.slice(0, -2);
+  }
+
+  if (`${left}`.includes('px')) {
+    elementLeft = elementLeft.slice(0, -2);
+  }
+
+  element.style.top = `${elementTop}px`;
+  element.style.left = `${elementLeft}px`;
+
+  return element;
+};
+
+export const setWords = (correctWords, top) => {
+  const words = correctWords;
+  const wordCards = document.querySelectorAll('.word-card__moveable');
+  // const wordCards = document.
+
+  const symbolSize = UTILS.getSymbolSize(correctWords);
+  let startHorizCoord = 0;
+
+  const leftCoods = correctWords.map((word) => {
+    const res = startHorizCoord;
+    const cardWidth = symbolSize * word.length - CARD_MARGIN;
+    startHorizCoord += cardWidth + CARD_MARGIN;
+    return res;
+  });
+
+  // const leftCoods = [];
+  // wordCards.forEach((card) => {
+  //   leftCoods.push(parseInt(card.style.left, 10));
+  // });
+  // leftCoods.sort(UTILS.compareSimple);
+
+  leftCoods.forEach((t) => console.log(t));
+
+  // wordCards.forEach((card) => {
+  //   const word = card.innerText;
+  //   const index = correctWords.indexOf(word);
+
+  //   moveCardTo(card, top, leftCoods[index]);
+  //   card.classList.add('word-card__mounted');
+  //   card.classList.remove('word-card__moveable');
+  //   card.classList.remove('word-card__preview');
+  // });
+
+  for (let i = 0; i < wordCards.length; i += 1) {
+    const card = wordCards[i];
+    // const element = arr/ay[i];
+    const word = card.innerText;
+    const index = words.indexOf(word);
+
+    if (index >= 0) {
+      words[index] = '';
+      moveCardTo(card, top, leftCoods[index]);
+      card.classList.add('word-card__mounted');
+      card.classList.remove('word-card__moveable');
+      card.classList.remove('word-card__preview');
+    }
+  }
+};
+
+export const showTranslate = (text) => {
+  document.querySelector('.translate-field__text').innerText = text;
+};
+
+export const clearTranslate = () => {
+  document.querySelector('.translate-field__text').innerText = '';
 };

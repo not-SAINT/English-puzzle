@@ -81,6 +81,17 @@ export const compareByLeft = (a, b) => {
   return 0;
 };
 
+export const compareSimple = (a, b) => {
+  if (a < b) {
+    return -1;
+  }
+  if (a > b) {
+    return 1;
+  }
+
+  return 0;
+};
+
 export const playSound = (source, volume = VOLUME_LEVEL_DEFAULT) => {
   if (source) {
     const audio = new Audio();

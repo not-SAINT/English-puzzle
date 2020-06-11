@@ -6,14 +6,6 @@ import {
 } from './options';
 import { getWords } from './utils';
 
-// import {
-//   createWordCards,
-//   clearWordsField,
-//   generateNewLinePuzzle,
-//   getCurrentLineWords,
-//   pushBackLastCards,
-//   setCorrectWordCardPosition,
-// } from './workWithDom';
 import * as myDom from './workWithDom';
 
 export default class Round {
@@ -44,50 +36,46 @@ export default class Round {
     const words = getWords(text);
 
     myDom.clearWordsField();
-    myDom.generateNewLinePuzzle();
+    // myDom.generateNewLinePuzzle();
     myDom.createWordCards(words);
 
     this.currentSentence = words;
     this.currentSentenceSound = audio;
+    this.currentStepTop = this.currentStep * this.lineHeight;
   }
 
   moveWord(wordCard) {
-    const card = wordCard;
+    let card = wordCard;
     const cardWidth = parseInt(wordCard.dataset.width, 10);
-
-    this.currentStepTop = this.currentStep * this.lineHeight;
 
     myDom.resetCheckedClasses();
 
-    card.style.top = `${this.currentStepTop}px`;
-    card.style.left = `${this.currentStepNextCardPos}px`;
+    // card.style.top = `${this.currentStepTop}px`;
+    // card.style.left = `${this.currentStepNextCardPos}px`;
+
+    card = myDom.moveCardTo(
+      card,
+      this.currentStepTop,
+      this.currentStepNextCardPos
+    );
 
     card.classList.add('word-card__preview');
 
     this.currentStepNextCardPos += cardWidth + CARD_MARGIN;
-
-    // const clone = wordCard.cloneNode(true);
-    // clone.style.boxSizing = 'border-box';
-    // console.log(clone.style.width);
-
-    // this.puzzle
-    //   .querySelector(`:nth-child(${this.currentStep + 1})`)
-    //   .append(clone);
-
-    // const w = parseInt(clone.style.width, 10);
-    // clone.style.width = `${w - 3}px`;
   }
 
   resetPosition(wordCard) {
-    const card = wordCard;
+    let card = wordCard;
     const { startHorizCoord } = wordCard.dataset;
     const cardWidth = parseInt(wordCard.dataset.width, 10);
     const cardLeft = parseInt(wordCard.style.left, 10);
 
     myDom.resetCheckedClasses();
 
-    card.style.top = `${START_POS_WORDS}px`;
-    card.style.left = `${startHorizCoord}px`;
+    // card.style.top = `${START_POS_WORDS}px`;
+    // card.style.left = `${startHorizCoord}px`;
+
+    card = myDom.moveCardTo(card, START_POS_WORDS, startHorizCoord);
 
     this.currentStepNextCardPos -= cardWidth + CARD_MARGIN;
 
@@ -117,12 +105,30 @@ export default class Round {
     return this.currentStepComplete;
   }
 
+  resetStepVars() {
+    this.currentStepNextCardPos = 0;
+  }
+
   nextStep() {
     this.currentStep += 1;
+    this.resetStepVars();
+
+    myDom.resetCheckedClasses();
+    myDom.clearTranslate();
+    // на всякий случай, удалить все оставшиеся слова в ожидании
+    myDom.clearUnusedWords();
+    myDom.saveCardsPosition();
 
     if (this.currentStep < ROUND_SIZE) {
-      this.resetStep();
       this.loadCurrSentence();
+    }
+  }
+
+  setRestWords() {
+    this.checkCurrentWordsPosition();
+
+    if (!this.currentStepComplete) {
+      myDom.setWords(this.currentSentence, this.currentStepTop);
     }
   }
 }

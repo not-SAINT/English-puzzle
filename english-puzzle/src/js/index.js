@@ -29,6 +29,10 @@ const getNextSentence = () => {
 };
 
 const moveWordToLine = ({ target }) => {
+  if (!target.classList.contains('word-card__moveable')) {
+    return undefined;
+  }
+
   if (target.classList.contains('word-card__preview')) {
     return CUR_ROUND.resetPosition(target);
   }
@@ -65,6 +69,14 @@ const onAutoPlayClick = () => {
   setAutoPlayButton(AUTO_PLAY);
 };
 
+const checkSomething = () => {
+  CUR_ROUND.resetStep();
+};
+
+const setupCurrentWords = () => {
+  CUR_ROUND.setRestWords();
+};
+
 const setHandlers = () => {
   document
     .querySelector('.start-page__start')
@@ -78,15 +90,20 @@ const setHandlers = () => {
     .getElementById('test')
     .addEventListener('click', handlers.onTestClick);
 
-  document.getElementById('go').addEventListener('click', startNewRound);
   document.getElementById('puzzle').addEventListener('click', moveWordToLine);
 
   document.getElementById('pronounce').addEventListener('click', playSentence);
 
   document.getElementById('check').addEventListener('click', checkWords);
   document
+    .getElementById('dontknow')
+    .addEventListener('click', setupCurrentWords);
+  document
     .getElementById('continue')
     .addEventListener('click', getNextSentence);
+
+  // check something
+  document.getElementById('go').addEventListener('click', checkSomething);
 };
 
 const loadState = () => {
@@ -101,11 +118,8 @@ const loadState = () => {
 };
 
 window.onload = () => {
-  // CONTAINER = document.getElementById('container');
   loadState();
   setHandlers();
-  // buildMenu();
-  // createCategories();
 
   startNewRound();
 };

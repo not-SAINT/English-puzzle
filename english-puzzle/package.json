@@ -52,6 +52,7 @@
     "webpack-dev-server": "^3.11.0"
   },
   "dependencies": {
+    "bulma": "^0.9.0",
     "core-js": "^3.4.7",
     "regenerator-runtime": "^0.13.3"
   }

@@ -1,0 +1,71 @@
+.game-field {
+  width: 900px;
+  height: 600px;
+
+  margin: 20px auto;
+
+  background-color: #e3f0cd;
+}
+
+.translate-field {
+  // width: 90%;
+  height: 7%;
+  // margin: 0 auto;
+
+  background-color: #caae8c;
+
+  &__text {
+    font-size: 2rem;
+    text-align: center;
+    vertical-align: middle;
+  }
+}
+
+.puzzle-field {
+  // width: 90%;
+  height: calc(100% - 24% - 30px);
+  // margin: 10px auto;
+  margin-top: 10px;
+  position: relative;
+
+  background-color: #a5ca8c;
+}
+
+.puzzle-line {
+  white-space: nowrap;
+  background-color: cadetblue;
+}
+
+.words-field {
+  // width: 90%;
+  height: 10%;
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  // margin: 0 auto;
+
+  align-items: center;
+
+  background-color: #8c90ca;
+}
+
+.control-field {
+  // width: 90%;
+  height: 7%;
+  display: flex;
+  justify-content: center;
+
+  // margin: 0 auto;
+  margin-top: 10px;
+
+  background-color: #ca8ca9;
+}
+
+.control__btn {
+  font-size: 1.7rem;
+  margin: 0 5px;
+}
+
+// #continue {
+//   display: none;
+// }

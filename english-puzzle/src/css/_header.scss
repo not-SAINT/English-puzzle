@@ -1,0 +1,63 @@
+.header {
+  height: 70px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  // background-color: cyan;
+}
+
+.logo {
+  font-size: 0;
+}
+
+.control-difficulty {
+  width: 225px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.tooltip {
+  width: auto;
+  height: 50px;
+  display: flex;
+  justify-content: space-between;
+
+  // background-color: blue;
+
+  &__btn {
+    margin-left: 20px;
+    // padding: 5px;
+    font-size: 2rem;
+
+    &_selected {
+      background-color: #a6edfa;
+    }
+  }
+
+  &__ico {
+    width: 3rem;
+    height: 3rem;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+
+    &_autoplay {
+      background-image: url('./../img/icons/play-solid.svg');
+    }
+
+    &_translate {
+      background-image: url('./../img/icons/language-solid.svg');
+    }
+
+    &_pronounce {
+      background-image: url('./../img/icons/music-solid.svg');
+    }
+
+    &_image {
+      background-image: url('./../img/icons/image-regular.svg');
+    }
+  }
+}
+
+// автопроизношение, перевод, произношение слова, фоновое изображение

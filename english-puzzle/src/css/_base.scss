@@ -1,0 +1,23 @@
+html {
+  height: 0;
+  font-size: 10px;
+  font-family: 'Comfortaa', sans-serif;
+}
+
+body {
+  margin: 0;
+  font-size: 1.6rem;
+}
+
+.hide {
+  // display: none;
+  // opacity: 0;
+
+  @extend %hide;
+  @extend %transition;
+}
+
+.wrapper {
+  width: $breakpoint-xl;
+  margin: 0 auto;
+}

@@ -1,11 +1,109 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>English Puzzle</title>
-</head>
-<body>
+  </head>
+  <body>
+    <div class="wrapper">
+      <header class="header">
+        <div class="control-difficulty">
+          <label for="level">Level</label>
+          <div class="select">
+            <select name="level" id="level">
+              <option value="0">1</option>
+              <option value="1">2</option>
+              <option value="2">3</option>
+              <option value="3">4</option>
+              <option value="4">5</option>
+              <option value="5">6</option>
+            </select>
+          </div>
 
-</body>
+          <label for="page">Page</label>
+          <div class="select">
+            <select name="page" id="page">
+              <option value="0">1</option>
+              <option value="1">2</option>
+              <option value="2">3</option>
+              <option value="3">4</option>
+              <option value="4">5</option>
+              <option value="5">6</option>
+            </select>
+          </div>
+        </div>
+        <div class="tooltip">
+          <button class="button tooltip__btn" id="autoplay" title="Autoplay">
+            <i class="tooltip__ico tooltip__ico_autoplay"></i>
+          </button>
+          <button class="button tooltip__btn" id="translate" title="Translate">
+            <i class="tooltip__ico tooltip__ico_translate"></i>
+          </button>
+          <button class="button tooltip__btn" id="pronounce" title="Pronounce">
+            <i class="tooltip__ico tooltip__ico_pronounce"></i>
+          </button>
+          <button class="button tooltip__btn" id="image" title="Image">
+            <i class="tooltip__ico tooltip__ico_image"></i>
+          </button>
+        </div>
+      </header>
+    </div>
+    <main>
+      <div class="start-page hide">
+        <h1 class="start-page__logo">English Puzzle</h1>
+        <p class="start-page__info">
+          Click on words, collect phrases. <br />
+          Words can be drag and drop. Select toollips in the menu.
+        </p>
+        <button class="button is-primary start-page__start" type="button">
+          Start
+        </button>
+      </div>
+
+      <div class="wrapper">
+        <div class="game-field">
+          <div class="translate-field">
+            <p class="translate-field__text">
+              Test sdf ksd kjdfgh kjdsfgjkdfh gkjd fhkjg hdkf
+            </p>
+          </div>
+          <div class="puzzle-field" id="puzzle"></div>
+          <div class="words-field" id="words"></div>
+          <div class="control-field">
+            <button
+              class="button is-info is-light control__btn"
+              id="test"
+              type="button"
+            >
+              Start test
+            </button>
+            <button class="button is-danger control__btn" type="button">
+              I don't know
+            </button>
+            <button
+              class="button is-warning control__btn"
+              id="check"
+              type="button"
+            >
+              Check
+            </button>
+            <button
+              class="button is-success control__btn"
+              id="continue"
+              type="button"
+            >
+              Continue
+            </button>
+            <button class="button is-info control__btn" type="button">
+              Results
+            </button>
+          </div>
+          <button class="button is-info" id="go" type="button">
+            Check Something
+          </button>
+        </div>
+      </div>
+    </main>
+  </body>
 </html>

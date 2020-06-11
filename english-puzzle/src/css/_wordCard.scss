@@ -1,0 +1,35 @@
+.word-card {
+  display: inline-block;
+  height: 8%;
+  margin: 0 2px;
+  position: absolute;
+  box-sizing: border-box;
+  border: 1px solid black;
+  border-radius: 5px;
+  text-align: center;
+  align-items: center;
+  line-height: 3rem;
+  user-select: none;
+
+  @extend %transition;
+
+  &__moveable {
+    cursor: pointer;
+
+    &:hover {
+      border-color: #f3ef1d;
+    }
+  }
+
+  &__preview {
+    border-color: #ffffff;
+  }
+
+  &__wrong {
+    border-color: #ff0000;
+  }
+
+  &__right {
+    border-color: #00ff00;
+  }
+}

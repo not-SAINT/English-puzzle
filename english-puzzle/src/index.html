@@ -12,24 +12,19 @@
           <label for="level">Level</label>
           <div class="select">
             <select name="level" id="level">
-              <option value="0">1</option>
-              <option value="1">2</option>
-              <option value="2">3</option>
-              <option value="3">4</option>
-              <option value="4">5</option>
-              <option value="5">6</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
             </select>
           </div>
 
-          <label for="page">Page</label>
+          <label for="page">Round</label>
           <div class="select">
-            <select name="page" id="page">
-              <option value="0">1</option>
-              <option value="1">2</option>
-              <option value="2">3</option>
-              <option value="3">4</option>
-              <option value="4">5</option>
-              <option value="5">6</option>
+            <select name="page" id="round">
+              <option value="1">1</option>
             </select>
           </div>
         </div>
@@ -50,7 +45,7 @@
       </header>
     </div>
     <main>
-      <div class="start-page hide">
+      <div class="start-page">
         <h1 class="start-page__logo">English Puzzle</h1>
         <p class="start-page__info">
           Click on words, collect phrases. <br />
@@ -69,41 +64,45 @@
           <div class="puzzle-field" id="puzzle"></div>
           <div class="words-field" id="words"></div>
           <div class="control-field">
-            <button
+            <!-- <button
               class="button is-info is-light control__btn"
               id="test"
               type="button"
             >
               Start test
-            </button>
+            </button> -->
             <button
-              class="button is-danger control__btn"
-              id="dontknow"
+              class="button is-danger control__btn control__btn_hide"
+              id="idontknow"
               type="button"
             >
               I don't know
             </button>
             <button
-              class="button is-warning control__btn"
+              class="button is-warning control__btn control__btn_hide"
               id="check"
               type="button"
             >
               Check
             </button>
             <button
-              class="button is-success control__btn"
+              class="button is-success control__btn control__btn_hide"
               id="continue"
               type="button"
             >
               Continue
             </button>
-            <button class="button is-info control__btn" type="button">
+            <button
+              class="button is-info control__btn control__btn_hide"
+              id="results"
+              type="button"
+            >
               Results
             </button>
           </div>
-          <button class="button is-info" id="go" type="button">
+          <!-- <button class="button is-info" id="go" type="button">
             Check Something
-          </button>
+          </button> -->
         </div>
       </div>
     </main>

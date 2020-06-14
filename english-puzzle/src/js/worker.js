@@ -3,6 +3,9 @@ import {
   AUTOPLAY_KEY,
   DEFAULT_APP_PROMTS,
   TRANSLATE_KEY,
+  BG_KEY,
+  NEXT_ROUND_KEY,
+  DEFAULT_ROUND,
 } from './options';
 
 export const createDomElement = (elementName = 'div', className) => {
@@ -47,6 +50,7 @@ export const restoreFromLocalStorage = (key) => {
 export const restoreAppPromts = () => {
   const autoplay = restoreFromLocalStorage(AUTOPLAY_KEY);
   const translate = restoreFromLocalStorage(TRANSLATE_KEY);
+  const image = restoreFromLocalStorage(BG_KEY);
 
   const promts = {};
 
@@ -62,5 +66,23 @@ export const restoreAppPromts = () => {
     promts.translate = DEFAULT_APP_PROMTS.translate;
   }
 
+  if (image !== undefined) {
+    promts.image = image;
+  } else {
+    promts.image = DEFAULT_APP_PROMTS.image;
+  }
+
   return promts;
+};
+
+export const restoreNextRound = () => {
+  const nextRound = restoreFromLocalStorage(NEXT_ROUND_KEY);
+
+  if (nextRound !== undefined) {
+    const { level, round } = nextRound;
+
+    return { level: +level, round: +round };
+  }
+
+  return DEFAULT_ROUND;
 };

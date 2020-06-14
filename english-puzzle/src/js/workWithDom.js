@@ -20,20 +20,26 @@ export const removeClassToElement = (selector, className) => {
   return false;
 };
 
-export const createWordCards = (words) => {
-  const root = document.getElementById('puzzle');
+export const setBGforWordCard = (wordCard, imageUrl, positionX, positionY) => {
+  const card = wordCard;
 
+  card.style.backgroundImage = `url('${imageUrl}')`;
+  card.style.backgroundPosition = `top ${positionY}px left ${positionX}px`;
+
+  return card;
+};
+
+export const createWordCards = (words, imageUrl, imageTop) => {
+  const root = document.getElementById('puzzle');
   const shuffledWords = UTILS.shuffleArray(words);
   const symbolSize = UTILS.getSymbolSize(words);
+  const correctWords = words.slice();
+  const leftCoods = UTILS.getCorrestLeftCoords(words);
 
   let startHorizCoord = 0;
 
   shuffledWords.forEach((word, index) => {
-    const wordCard = createDomElement(
-      'span',
-      'word-card',
-      'word-card__moveable'
-    );
+    let wordCard = createDomElement('span', 'word-card', 'word-card__moveable');
     const cardWidth = symbolSize * word.length - CARD_MARGIN;
     wordCard.innerText = word;
     wordCard.style.width = `${cardWidth}px`;
@@ -42,6 +48,18 @@ export const createWordCards = (words) => {
     wordCard.dataset.startIndex = index;
     wordCard.dataset.startHorizCoord = startHorizCoord;
     wordCard.dataset.width = cardWidth;
+
+    const indexLeft = correctWords.indexOf(word);
+
+    if (indexLeft >= 0) {
+      correctWords[indexLeft] = '';
+      wordCard = setBGforWordCard(
+        wordCard,
+        imageUrl,
+        -leftCoods[indexLeft],
+        -imageTop
+      );
+    }
 
     startHorizCoord += cardWidth + CARD_MARGIN;
 
@@ -52,14 +70,6 @@ export const createWordCards = (words) => {
 export const clearWordsField = () => {
   document.getElementById('words').innerHTML = '';
 };
-
-// export const generateNewLinePuzzle = () => {
-//   const field = document.getElementById('puzzle');
-//   const newLine = createDomElement('div', 'puzzle-line');
-//   newLine.style.height = `${UTILS.getPuzzleLineHeigth()}px`;
-
-//   field.append(newLine);
-// };
 
 export const getCurrentLineWords = () => {
   const words = [];
@@ -166,13 +176,6 @@ export const setPromtButtons = (promts) => {
       btn.classList.remove('tooltip__btn_selected');
     }
   });
-
-  //   const btn = document.getElementById('autoplay');
-  //   if (autoplay) {
-  //     btn.classList.add('tooltip__btn_selected');
-  //   } else {
-  //     btn.classList.remove('tooltip__btn_selected');
-  //   }
 };
 
 export const clearUnusedWords = () => {
@@ -218,15 +221,17 @@ export const setWords = (correctWords, top) => {
   const wordCards = document.querySelectorAll('.word-card__moveable');
   // const wordCards = document.
 
-  const symbolSize = UTILS.getSymbolSize(correctWords);
-  let startHorizCoord = 0;
+  // const symbolSize = UTILS.getSymbolSize(correctWords);
+  // let startHorizCoord = 0;
 
-  const leftCoods = correctWords.map((word) => {
-    const res = startHorizCoord;
-    const cardWidth = symbolSize * word.length - CARD_MARGIN;
-    startHorizCoord += cardWidth + CARD_MARGIN;
-    return res;
-  });
+  // const leftCoods = correctWords.map((word) => {
+  //   const res = startHorizCoord;
+  //   const cardWidth = symbolSize * word.length - CARD_MARGIN;
+  //   startHorizCoord += cardWidth + CARD_MARGIN;
+  //   return res;
+  // });
+
+  const leftCoods = UTILS.getCorrestLeftCoords(correctWords);
 
   // const leftCoods = [];
   // wordCards.forEach((card) => {
@@ -234,7 +239,7 @@ export const setWords = (correctWords, top) => {
   // });
   // leftCoods.sort(UTILS.compareSimple);
 
-  leftCoods.forEach((t) => console.log(t));
+  // leftCoods.forEach((t) => console.log(t));
 
   // wordCards.forEach((card) => {
   //   const word = card.innerText;
@@ -268,4 +273,106 @@ export const showTranslate = (text) => {
 
 export const clearTranslate = () => {
   document.querySelector('.translate-field__text').innerText = '';
+};
+
+// export const setGameButtons = (buttonsState) => {
+//   const keys = Object.keys(buttonsState);
+
+//   keys.forEach((key) => {
+//     const btn = document.getElementById(key);
+//     if (buttonsState[key]) {
+//       btn.classList.remove('control__btn_hide');
+//     } else {
+//       btn.classList.add('control__btn_hide');
+//     }
+//   });
+// };
+
+export const toggleGameButton = (buttonId, isVisible = false) => {
+  const btn = document.getElementById(buttonId);
+  if (isVisible) {
+    btn.classList.remove('control__btn_hide');
+  } else {
+    btn.classList.add('control__btn_hide');
+  }
+};
+
+export const setPuzzleBackgroundImage = (imageUrl) => {
+  document.getElementById('puzzle').style.backgroundImage = imageUrl;
+};
+
+export const hideWordCards = () => {
+  const wordCards = document.querySelectorAll('.word-card');
+
+  wordCards.forEach((card) => {
+    card.classList.add('word-card__hide');
+  });
+};
+
+// export const hideCardsImage = () => {
+//   const wordCards = document.querySelectorAll('.word-card__moveable');
+
+//   wordCards.forEach((card) => {
+//     const wordCard = card;
+//     wordCard.style.backgroundImage = '';
+//   });
+// };
+
+// export const showCardsImage = (imageUrl) => {
+//   const wordCards = document.querySelectorAll('.word-card__moveable');
+
+//   wordCards.forEach((card) => {
+//     const wordCard = card;
+//     wordCard.style.backgroundImage = imageUrl;
+//   });
+// };
+
+export const toggleCardsImage = (imageUrl) => {
+  const wordCards = document.querySelectorAll('.word-card__moveable');
+
+  wordCards.forEach((card) => {
+    const wordCard = card;
+    wordCard.style.backgroundImage = imageUrl ? `url('${imageUrl}')` : '';
+  });
+};
+
+export const createSelectOptions = (cntRounds) => {
+  const select = document.getElementById('round');
+
+  select.innerHTML = '';
+
+  for (let i = 1; i <= cntRounds; i += 1) {
+    const opt = document.createElement('option');
+    opt.value = i;
+    opt.text = i;
+    opt.innerHTML = i;
+    select.appendChild(opt);
+  }
+};
+
+export const resetPuzzleField = () => {
+  const field = document.getElementById('puzzle');
+
+  field.innerHTML = '';
+  field.style.backgroundImage = '';
+};
+
+export const setSelectWithAppState = ({ level, round }) => {
+  const selectLevel = document.getElementById('level');
+  const selectRound = document.getElementById('round');
+
+  selectLevel.selectedIndex = level - 1;
+  selectRound.selectedIndex = round - 1;
+};
+
+export const isAllWordsSetted = (cntWords) => {
+  const cntWordSetted = document.querySelectorAll('.word-card__preview').length;
+
+  return cntWordSetted === cntWords;
+};
+
+export const switchButtonsToNextStep = () => {
+  toggleGameButton('idontknow', false);
+  toggleGameButton('check', false);
+  toggleGameButton('continue', true);
 };

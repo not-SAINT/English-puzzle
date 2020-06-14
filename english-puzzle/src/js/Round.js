@@ -4,16 +4,26 @@ import {
   CARD_MARGIN,
   START_POS_WORDS,
   VOICE_URL,
+  PICTURE_URL,
 } from './options';
-import { getWords, playSound } from './utils';
+import {
+  getWords,
+  playSound,
+  calcLineHeight,
+  preloadImage,
+  getBackgroundInfo,
+} from './utils';
 
 import * as myDom from './workWithDom';
+import { getBackgroundPictureObject } from './levels';
 
 export default class Round {
-  constructor(data, prompts) {
+  constructor({ level, round }, data, prompts) {
     this.data = data;
     this.promts = prompts;
 
+    this.level = level;
+    this.round = round;
     this.currentStep = 0;
     this.currentStepNextCardPos = 0;
     this.currentStepTop = 0;
@@ -21,27 +31,40 @@ export default class Round {
     // this.rightPos = 0;
     this.puzzle = document.getElementById('puzzle');
 
-    this.lineHeight = PUZZLE_FILED_HEIGHT / ROUND_SIZE;
+    // this.lineHeight = PUZZLE_FILED_HEIGHT / ROUND_SIZE;
+    this.lineHeight = calcLineHeight();
 
     this.currentSentence = '';
     this.currentStepComplete = false;
     this.currentSentenceSound = '';
     this.currentSentenceTranslate = '';
+    this.pictureObjectInfo = getBackgroundPictureObject(level, round);
+    this.currentBackground = '';
+    // this.currentBackgroundInfo = `ds ghfd sd jfgsdhfg sdjkf gh`;
+    // this.buttonsState = {};
   }
 
-  // setStartRoundValues() {
-  //   this.puzzle = document.getElementById('puzzle');
+  async loadBackgroundPicture() {
+    const { cutSrc } = this.pictureObjectInfo;
+    const pictureUrl = `${PICTURE_URL}${cutSrc}`;
 
-  //   this.lineHeight = PUZZLE_FILED_HEIGHT / ROUND_SIZE;
-  // }
+    this.currentBackground = pictureUrl;
 
-  loadCurrSentence() {
+    await preloadImage(pictureUrl);
+    // return pictureUrl;
+  }
+
+  async loadCurrSentence() {
     const { text, audio, translate } = this.data[this.currentStep];
     const words = getWords(text);
 
+    await this.loadBackgroundPicture();
+
     myDom.clearWordsField();
     // myDom.generateNewLinePuzzle();
-    myDom.createWordCards(words);
+    // console.log(`this.currentBackground = ${this.currentBackground}`);
+
+    myDom.createWordCards(words, this.currentBackground, this.currentStepTop);
 
     this.currentSentence = words;
     this.currentSentenceSound = audio;
@@ -49,6 +72,15 @@ export default class Round {
     this.currentStepTop = this.currentStep * this.lineHeight;
 
     this.showPromts();
+
+    // this.buttonsState.idontknow = true;
+    // this.buttonsState.check = true;
+
+    // myDom.setGameButtons(this.buttonsState);
+    myDom.toggleGameButton('idontknow', true);
+    myDom.toggleGameButton('check', true);
+    myDom.toggleGameButton('continue', false);
+    myDom.toggleGameButton('results', false);
   }
 
   moveWord(wordCard) {
@@ -128,6 +160,7 @@ export default class Round {
 
     if (this.currentStep < ROUND_SIZE) {
       this.loadCurrSentence();
+      myDom.toggleGameButton('continue', false);
     }
   }
 
@@ -135,8 +168,11 @@ export default class Round {
     this.checkCurrentWordsPosition();
 
     if (!this.currentStepComplete) {
+      myDom.showCardsImage(this.currentBackground);
       myDom.setWords(this.currentSentence, this.currentStepTop);
     }
+
+    myDom.switchButtonsToNextStep();
   }
 
   showPromts(isChosen = true) {
@@ -149,8 +185,30 @@ export default class Round {
     // translate
     if (isChosen && this.promts.translate) {
       myDom.showTranslate(this.currentSentenceTranslate);
+    } else {
+      myDom.clearTranslate();
     }
 
+    console.log(`showPromts ${this.promts.image} ${this.currentBackground}`);
+    console.log(`showPromts ${isChosen} `);
+
     // background
+    if (isChosen && this.promts.image) {
+      myDom.toggleCardsImage(this.currentBackground);
+    } else {
+      myDom.toggleCardsImage();
+    }
+  }
+
+  endRound() {
+    this.currentStep += 1;
+
+    // скрыть карточки
+    myDom.hideWordCards();
+    // показать данные о картине
+    myDom.toggleGameButton('results', true);
+    // показать инфу о картинке
+    const currentBackgroundInfo = getBackgroundInfo(this.pictureObjectInfo);
+    myDom.showTranslate(currentBackgroundInfo);
   }
 }

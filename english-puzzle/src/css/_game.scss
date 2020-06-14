@@ -4,7 +4,9 @@
 
   margin: 20px auto;
 
-  background-color: #e3f0cd;
+  user-select: none;
+
+  // background-color: #e3f0cd;
 }
 
 .translate-field {
@@ -12,7 +14,7 @@
   height: 7%;
   // margin: 0 auto;
 
-  background-color: #caae8c;
+  // background-color: #caae8c;
 
   &__text {
     font-size: 2rem;
@@ -27,14 +29,28 @@
   // margin: 10px auto;
   margin-top: 10px;
   position: relative;
+  border: 1px solid black;
 
-  background-color: #a5ca8c;
+  // background-color: $color-puzzle-field;
+
+  background-repeat: no-repeat;
+
+  // background-size: auto auto;
+  background-size: 900px 600px;
+
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3),
+    -23px 0 20px -23px rgba(0, 0, 0, 0.8), 23px 0 20px -23px rgba(0, 0, 0, 0.8),
+    0 0 40px rgba(0, 0, 0, 0.1) inset;
+
+  // background-position: top 10px left 20px;
+
+  // background-image: url('./../img/brig.jpg');
 }
 
-.puzzle-line {
-  white-space: nowrap;
-  background-color: cadetblue;
-}
+// .puzzle-line {
+//   white-space: nowrap;
+//   background-color: cadetblue;
+// }
 
 .words-field {
   // width: 90%;
@@ -46,7 +62,7 @@
 
   align-items: center;
 
-  background-color: #8c90ca;
+  // background-color: $color-puzzle-field;
 }
 
 .control-field {
@@ -57,15 +73,26 @@
 
   // margin: 0 auto;
   margin-top: 10px;
-
-  background-color: #ca8ca9;
 }
 
 .control__btn {
   font-size: 1.7rem;
   margin: 0 5px;
-}
+  @extend %transition;
 
-// #continue {
-//   display: none;
-// }
+  &_hide {
+    max-width: 0;
+    max-height: 0;
+    margin: 0;
+    opacity: 0;
+    font-size: 0;
+    overflow: hidden;
+  }
+
+  // &_show {
+  //   max-width: auto;
+  //   opacity: 1;
+  //   font-size: 0;
+  //   // overflow: hidden;
+  // }
+}

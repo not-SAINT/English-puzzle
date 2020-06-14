@@ -3,6 +3,8 @@ import {
   GAME_FILED_HEIGHT,
   ROUND_SIZE,
   VOLUME_LEVEL_DEFAULT,
+  CARD_MARGIN,
+  PUZZLE_FILED_HEIGHT,
 } from './options';
 import { restoreFromLocalStorage } from './worker';
 
@@ -81,16 +83,16 @@ export const compareByLeft = (a, b) => {
   return 0;
 };
 
-export const compareSimple = (a, b) => {
-  if (a < b) {
-    return -1;
-  }
-  if (a > b) {
-    return 1;
-  }
+// export const compareSimple = (a, b) => {
+//   if (a < b) {
+//     return -1;
+//   }
+//   if (a > b) {
+//     return 1;
+//   }
 
-  return 0;
-};
+//   return 0;
+// };
 
 export const playSound = (source, volume = VOLUME_LEVEL_DEFAULT) => {
   if (source) {
@@ -100,3 +102,41 @@ export const playSound = (source, volume = VOLUME_LEVEL_DEFAULT) => {
     audio.autoplay = true;
   }
 };
+
+export const getCorrestLeftCoords = (words) => {
+  const symbolSize = getSymbolSize(words);
+  let startLeft = 0;
+
+  return words.map((word) => {
+    const res = startLeft;
+    const cardWidth = symbolSize * word.length - CARD_MARGIN;
+    startLeft += cardWidth + CARD_MARGIN;
+    return res;
+  });
+};
+
+export const calcLineHeight = () => {
+  return (GAME_FILED_HEIGHT * 0.76 - 30) / ROUND_SIZE;
+};
+
+export const preloadImage = (imageUrl) => {
+  return new Promise((resolve, reject) => {
+    const image = document.createElement('img');
+    image.onload = resolve;
+    image.onerror = reject;
+    image.src = imageUrl;
+  });
+};
+
+export const getBackgroundInfo = ({ name, author, year }) => {
+  return `Picture: ${name}. Author: ${author}. Year: ${year}`;
+};
+
+// {
+//   "id": "6_02",
+//   "name": "Card-Sharpers",
+//   "imageSrc": "level6/6_02.jpg",
+//   "cutSrc": "level6/cut/6_02.jpg",
+//   "author": "OOST, Jacob van, the Elder",
+//   "year": "1634"
+// },

@@ -28,6 +28,6 @@ export const DEFAULT_APP_PROMTS = {
   translate: true,
   image: false,
 };
-export const DEFAULT_ROUND = { level: 1, round: 1 };
+export const DEFAULT_ROUND = { level: 0, round: 0 };
 export const MAX_LEVEL = 6;
 export const ROUND_SIZE = 10;

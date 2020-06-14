@@ -2,7 +2,7 @@ import { BACKEND_URL, BACKEND_URL_LAST_PART } from './options';
 import textWords from './words.sample.0.5.json';
 
 export const getRoundData = async ({ level, round }) => {
-  const url = `${BACKEND_URL}?group=${level}&page=${round}{BACKEND_URL_LAST_PART}`;
+  const url = `${BACKEND_URL}?group=${level}&page=${round}${BACKEND_URL_LAST_PART}`;
   const res = await fetch(url);
 
   return res.json(res);

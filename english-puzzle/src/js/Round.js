@@ -168,7 +168,8 @@ export default class Round {
     this.checkCurrentWordsPosition();
 
     if (!this.currentStepComplete) {
-      myDom.showCardsImage(this.currentBackground);
+      // myDom.showCardsImage(this.currentBackground);
+      myDom.toggleCardsImage(this.currentBackground);
       myDom.setWords(this.currentSentence, this.currentStepTop);
     }
 
@@ -176,23 +177,17 @@ export default class Round {
   }
 
   showPromts(isChosen = true) {
-    // autoplay
     if (isChosen && this.promts.autoplay) {
       const url = `${VOICE_URL}${this.currentSentenceSound}`;
       playSound(url);
     }
 
-    // translate
     if (isChosen && this.promts.translate) {
       myDom.showTranslate(this.currentSentenceTranslate);
     } else {
       myDom.clearTranslate();
     }
 
-    console.log(`showPromts ${this.promts.image} ${this.currentBackground}`);
-    console.log(`showPromts ${isChosen} `);
-
-    // background
     if (isChosen && this.promts.image) {
       myDom.toggleCardsImage(this.currentBackground);
     } else {

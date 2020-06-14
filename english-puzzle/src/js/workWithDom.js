@@ -343,7 +343,7 @@ export const createSelectOptions = (cntRounds) => {
 
   for (let i = 1; i <= cntRounds; i += 1) {
     const opt = document.createElement('option');
-    opt.value = i;
+    opt.value = i - 1;
     opt.text = i;
     opt.innerHTML = i;
     select.appendChild(opt);
@@ -361,8 +361,8 @@ export const setSelectWithAppState = ({ level, round }) => {
   const selectLevel = document.getElementById('level');
   const selectRound = document.getElementById('round');
 
-  selectLevel.selectedIndex = level - 1;
-  selectRound.selectedIndex = round - 1;
+  selectLevel.selectedIndex = level;
+  selectRound.selectedIndex = round;
 };
 
 export const isAllWordsSetted = (cntWords) => {

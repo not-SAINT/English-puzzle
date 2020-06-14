@@ -56,9 +56,9 @@ const setNextRound = () => {
   let { level, round } = APP_STATE;
 
   if (round < MAX_ROUND) {
-    round = +round + 1;
+    round = +round;
   } else {
-    level = +level + 1;
+    level = +level;
     round = 1;
   }
 
@@ -167,15 +167,21 @@ const setAppState = () => {
 
   APP_STATE = { level, round };
 
-  saveToLocalStorage(NEXT_ROUND_KEY, APP_STATE);
+  // saveToLocalStorage(NEXT_ROUND_KEY, APP_STATE);
 };
 
 const setRoundsSelect = async () => {
+  // console.log(
+  //   `setRoundsSelect level ${APP_STATE.level} round ${APP_STATE.round}`
+  // );
   const cntRoundsPerLevel = await getCountRoundsPerLevel(APP_STATE);
+
+  // console.log(`cntRoundsPerLevel ${cntRoundsPerLevel} `);
 
   MAX_ROUND = cntRoundsPerLevel;
 
   createSelectOptions(cntRoundsPerLevel);
+  setSelectWithAppState(APP_STATE);
 };
 
 const onPageChange = () => {
@@ -246,6 +252,8 @@ const loadState = () => {
   setPromtButtons(PROMTS);
 
   APP_STATE = restoreNextRound();
+
+  // console.log(` level ${APP_STATE.level} round ${APP_STATE.round}`);
 
   setRoundsSelect();
 };

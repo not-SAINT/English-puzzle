@@ -29,5 +29,7 @@ export const DEFAULT_APP_PROMTS = {
   image: false,
 };
 export const DEFAULT_ROUND = { level: 0, round: 0 };
-export const MAX_LEVEL = 6;
+export const LAST_ROUND = { level: 0, round: 0 };
+export const LAST_LEVEL = { level: 0, round: 0 };
+export const MAX_LEVEL = 5;
 export const ROUND_SIZE = 10;

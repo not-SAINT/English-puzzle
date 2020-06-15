@@ -1,4 +1,9 @@
-import { START_POS_WORDS, CARD_MARGIN } from './options';
+import {
+  START_POS_WORDS,
+  CARD_MARGIN,
+  LAST_LEVEL,
+  LAST_ROUND,
+} from './options';
 import * as UTILS from './utils';
 
 export const createDomElement = (elementName = 'div', ...classNames) => {
@@ -348,6 +353,8 @@ export const createSelectOptions = (cntRounds) => {
     opt.innerHTML = i;
     select.appendChild(opt);
   }
+
+  select.selectedIndex = 0;
 };
 
 export const resetPuzzleField = () => {
@@ -375,4 +382,31 @@ export const switchButtonsToNextStep = () => {
   toggleGameButton('idontknow', false);
   toggleGameButton('check', false);
   toggleGameButton('continue', true);
+};
+
+export const fillModal = ({ level, round }, { idontknow, iknow }) => {
+  console.log(`fillModal = ${level} ${round} ${idontknow} ${iknow}`);
+
+  if (level === LAST_LEVEL && round === LAST_ROUND) {
+    // show game over text
+    return;
+  }
+
+  const idontknowContainer = document.querySelector('.modal__idontknow');
+  const iknowContainer = document.querySelector('.modal__iknow');
+
+  idontknowContainer.innerHTML = '';
+  iknowContainer.innerHTML = '';
+
+  idontknow.forEach((sentence) => {
+    const text = createDomElement('p', 'modal__text');
+    text.innerText = sentence;
+    idontknowContainer.append(text);
+  });
+
+  iknow.forEach((sentence) => {
+    const text = createDomElement('p', 'modal__text');
+    text.innerText = sentence;
+    iknowContainer.append(text);
+  });
 };

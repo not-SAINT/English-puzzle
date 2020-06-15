@@ -27,6 +27,10 @@ export default class Round {
     this.currentStep = 0;
     this.currentStepNextCardPos = 0;
     this.currentStepTop = 0;
+    this.roundResults = {
+      idontknow: [],
+      iknow: [],
+    };
 
     // this.rightPos = 0;
     this.puzzle = document.getElementById('puzzle');
@@ -34,6 +38,7 @@ export default class Round {
     // this.lineHeight = PUZZLE_FILED_HEIGHT / ROUND_SIZE;
     this.lineHeight = calcLineHeight();
 
+    this.currentWords = '';
     this.currentSentence = '';
     this.currentStepComplete = false;
     this.currentSentenceSound = '';
@@ -66,7 +71,8 @@ export default class Round {
 
     myDom.createWordCards(words, this.currentBackground, this.currentStepTop);
 
-    this.currentSentence = words;
+    this.currentWords = words;
+    this.currentSentence = text;
     this.currentSentenceSound = audio;
     this.currentSentenceTranslate = translate;
     this.currentStepTop = this.currentStep * this.lineHeight;
@@ -103,6 +109,21 @@ export default class Round {
     this.currentStepNextCardPos += cardWidth + CARD_MARGIN;
   }
 
+  addResults(group) {
+    const { idontknow, iknow } = this.roundResults;
+    const sentence = this.currentSentence;
+
+    // console.log(`addResults = ${group} sentence = ${this.currentSentence} `);
+
+    if (group === 'idontknow') {
+      idontknow.push(sentence);
+    }
+
+    if (group === 'iknow') {
+      iknow.push(sentence);
+    }
+  }
+
   resetPosition(wordCard) {
     let card = wordCard;
     const { startHorizCoord } = wordCard.dataset;
@@ -136,7 +157,7 @@ export default class Round {
 
   checkCurrentWordsPosition() {
     this.currentStepComplete = myDom.setCorrectWordCardPosition(
-      this.currentSentence
+      this.currentWords
     );
 
     // console.log(`this.currentStepComplete = ${this.currentStepComplete}`);
@@ -170,7 +191,10 @@ export default class Round {
     if (!this.currentStepComplete) {
       // myDom.showCardsImage(this.currentBackground);
       myDom.toggleCardsImage(this.currentBackground);
-      myDom.setWords(this.currentSentence, this.currentStepTop);
+      myDom.setWords(this.currentWords, this.currentStepTop);
+      this.addResults('idontknow');
+    } else {
+      this.addResults('iknow');
     }
 
     myDom.switchButtonsToNextStep();
@@ -197,6 +221,11 @@ export default class Round {
 
   endRound() {
     this.currentStep += 1;
+
+    this.roundResults = {
+      idontknow: [],
+      iknow: [],
+    };
 
     // скрыть карточки
     myDom.hideWordCards();

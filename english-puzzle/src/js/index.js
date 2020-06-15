@@ -24,6 +24,7 @@ import {
   setSelectWithAppState,
   isAllWordsSetted,
   switchButtonsToNextStep,
+  fillModal,
 } from './workWithDom';
 import Round from './Round';
 
@@ -55,15 +56,17 @@ const startNewRound = async () => {
 const setNextRound = () => {
   let { level, round } = APP_STATE;
 
+  console.log(`setNextRound level ${level}, round ${round}`);
+
   if (round < MAX_ROUND) {
-    round = +round;
+    round = +round + 1;
   } else {
-    level = +level;
-    round = 1;
+    level = +level + 1;
+    round = 0;
   }
 
   if (+level > MAX_LEVEL) {
-    level = 1;
+    level = 0;
   }
 
   APP_STATE = {
@@ -71,7 +74,7 @@ const setNextRound = () => {
     round,
   };
 
-  console.log(`level ${level} round ${round}`);
+  console.log(`setNextRound level ${level} round ${round}`);
 
   setSelectWithAppState(APP_STATE);
 };
@@ -87,6 +90,7 @@ const onContinueClick = () => {
   if (currentStep === lastRoundStep) {
     const url = `url('${CUR_ROUND.currentBackground}')`;
 
+    fillModal(APP_STATE, CUR_ROUND.roundResults);
     setPuzzleBackgroundImage(url);
 
     return CUR_ROUND.endRound();
@@ -113,7 +117,7 @@ const moveWordToLine = ({ target }) => {
     CUR_ROUND.moveWord(target);
   }
 
-  const cntWordsInCurrentStep = CUR_ROUND.currentSentence.length;
+  const cntWordsInCurrentStep = CUR_ROUND.currentWords.length;
 
   let isStepComplited = false;
 
@@ -122,6 +126,7 @@ const moveWordToLine = ({ target }) => {
   }
 
   if (isStepComplited) {
+    CUR_ROUND.addResults('iknow');
     switchButtonsToNextStep();
   }
 
@@ -178,7 +183,7 @@ const setRoundsSelect = async () => {
 
   // console.log(`cntRoundsPerLevel ${cntRoundsPerLevel} `);
 
-  MAX_ROUND = cntRoundsPerLevel;
+  MAX_ROUND = cntRoundsPerLevel - 1;
 
   createSelectOptions(cntRoundsPerLevel);
   setSelectWithAppState(APP_STATE);
@@ -206,7 +211,7 @@ const onLevelChange = () => {
 //   hideCardsImage();
 // };
 
-const setupCurrentWords = () => {
+const onIdontknowClick = () => {
   CUR_ROUND.setRestWords();
 };
 
@@ -214,6 +219,10 @@ const setHandlers = () => {
   document
     .querySelector('.start-page__start')
     .addEventListener('click', handlers.onStartButtonClick);
+
+  document
+    .getElementById('closemodal')
+    .addEventListener('click', handlers.onModalClose);
 
   document
     .getElementById('autoplay')
@@ -234,10 +243,14 @@ const setHandlers = () => {
   document.getElementById('check').addEventListener('click', checkWords);
   document
     .getElementById('idontknow')
-    .addEventListener('click', setupCurrentWords);
+    .addEventListener('click', onIdontknowClick);
   document
     .getElementById('continue')
     .addEventListener('click', onContinueClick);
+
+  document
+    .getElementById('results')
+    .addEventListener('click', handlers.onModalOpen);
 
   document.getElementById('level').addEventListener('change', onLevelChange);
   document.getElementById('round').addEventListener('change', onPageChange);
@@ -248,19 +261,14 @@ const setHandlers = () => {
 
 const loadState = () => {
   PROMTS = restoreAppPromts();
-
-  setPromtButtons(PROMTS);
-
   APP_STATE = restoreNextRound();
 
-  // console.log(` level ${APP_STATE.level} round ${APP_STATE.round}`);
-
+  setPromtButtons(PROMTS);
   setRoundsSelect();
 };
 
 window.onload = () => {
   loadState();
   setHandlers();
-
   startNewRound();
 };

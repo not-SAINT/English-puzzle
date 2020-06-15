@@ -1,37 +1,11 @@
-import { getCountPagesPerLevel, getRoundDataTest } from './backend';
-
 export const onStartButtonClick = () => {
   document.querySelector('.start-page').classList.add('hide');
 };
 
-export const onTestClick = async () => {
-  // get new words
-
-  const selectLevel = document.getElementById('level');
-  const level = selectLevel.options[selectLevel.selectedIndex].value;
-
-  const selectPage = document.getElementById('page');
-  const page = selectPage.options[selectPage.selectedIndex].value;
-
-  // const countPagesPerLevel = await getCountPagesPerLevel(level);
-  const res = await getRoundDataTest();
-
-  // console.log(`level = ${level} count pages = ${countPagesPerLevel}`);
-  console.log(`level = ${level} count pages = ${res.length}`);
+export const onModalClose = () => {
+  document.querySelector('.modal').classList.remove('is-active');
 };
 
-// export const onTestClick = async () => {
-//   // get new words
-
-//   const selectLevel = document.getElementById('level');
-//   const level = selectLevel.options[selectLevel.selectedIndex].value;
-
-//   const selectPage = document.getElementById('page');
-//   const page = selectPage.options[selectPage.selectedIndex].value;
-
-//   // const countPagesPerLevel = await getCountPagesPerLevel(level);
-//   const res = await getRoundDataTest();
-
-//   // console.log(`level = ${level} count pages = ${countPagesPerLevel}`);
-//   console.log(`level = ${level} count pages = ${res.length}`);
-// };
+export const onModalOpen = () => {
+  document.querySelector('.modal').classList.add('is-active');
+};

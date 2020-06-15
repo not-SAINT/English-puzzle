@@ -1,9 +1,4 @@
-import {
-  START_POS_WORDS,
-  CARD_MARGIN,
-  LAST_LEVEL,
-  LAST_ROUND,
-} from './options';
+import { START_POS_WORDS, CARD_MARGIN } from './options';
 import * as UTILS from './utils';
 
 export const createDomElement = (elementName = 'div', ...classNames) => {
@@ -96,6 +91,7 @@ export const resetCheckedClasses = () => {
 
 export const setCorrectWordCardPosition = (correctWords) => {
   let isSentenceDone = true;
+
   const wordsForCheck = document.querySelectorAll('.word-card__preview');
   const cntWordsToCheck = wordsForCheck.length;
 
@@ -108,7 +104,6 @@ export const setCorrectWordCardPosition = (correctWords) => {
   });
 
   currCards.sort(UTILS.compareByLeft);
-  // currCards.forEach((t) => console.log(t));
   resetCheckedClasses();
 
   wordsForCheck.forEach((card) => {
@@ -119,46 +114,25 @@ export const setCorrectWordCardPosition = (correctWords) => {
         correctWords[index] === currCards[index].word
       ) {
         card.classList.add('word-card__right');
-        // console.log('true');
       } else {
         card.classList.add('word-card__wrong');
         isSentenceDone = false;
-        // console.log('faalse');
       }
     }
-
-    // console.log(
-    //   `word = '${currCards[index].word}' correctWords = '${correctWords[index]}'`
-    // );
   });
 
   return isSentenceDone;
 };
 
 export const pushBackLastCards = (emptyPos, leftShift) => {
-  // let newLeft = left;
-
-  // document.querySelectorAll('.word-card__preview').forEach((card) => {
-  //   const wordCard = card;
-  //   const cardLeft = parseInt(wordCard.style.left, 10);
-
-  //   if (cardLeft > newLeft) {
-  //     wordCard.style.left = `${newLeft + CARD_MARGIN}px`;
-  //     newLeft += wordCard.dataset.width;
-  //   }
-  // });
-
   document.querySelectorAll('.word-card__preview').forEach((card) => {
     const wordCard = card;
     const cardLeft = parseInt(wordCard.style.left, 10);
 
     if (cardLeft > emptyPos) {
       wordCard.style.left = `${cardLeft - leftShift - CARD_MARGIN}px`;
-      // newLeft += wordCard.dataset.width;
     }
   });
-
-  // return newLeft;
 };
 
 export const setAutoPlayButton = (autoplay) => {
@@ -224,41 +198,10 @@ export const moveCardTo = (card, top, left) => {
 export const setWords = (correctWords, top) => {
   const words = correctWords;
   const wordCards = document.querySelectorAll('.word-card__moveable');
-  // const wordCards = document.
-
-  // const symbolSize = UTILS.getSymbolSize(correctWords);
-  // let startHorizCoord = 0;
-
-  // const leftCoods = correctWords.map((word) => {
-  //   const res = startHorizCoord;
-  //   const cardWidth = symbolSize * word.length - CARD_MARGIN;
-  //   startHorizCoord += cardWidth + CARD_MARGIN;
-  //   return res;
-  // });
-
   const leftCoods = UTILS.getCorrestLeftCoords(correctWords);
-
-  // const leftCoods = [];
-  // wordCards.forEach((card) => {
-  //   leftCoods.push(parseInt(card.style.left, 10));
-  // });
-  // leftCoods.sort(UTILS.compareSimple);
-
-  // leftCoods.forEach((t) => console.log(t));
-
-  // wordCards.forEach((card) => {
-  //   const word = card.innerText;
-  //   const index = correctWords.indexOf(word);
-
-  //   moveCardTo(card, top, leftCoods[index]);
-  //   card.classList.add('word-card__mounted');
-  //   card.classList.remove('word-card__moveable');
-  //   card.classList.remove('word-card__preview');
-  // });
 
   for (let i = 0; i < wordCards.length; i += 1) {
     const card = wordCards[i];
-    // const element = arr/ay[i];
     const word = card.innerText;
     const index = words.indexOf(word);
 
@@ -280,21 +223,9 @@ export const clearTranslate = () => {
   document.querySelector('.translate-field__text').innerText = '';
 };
 
-// export const setGameButtons = (buttonsState) => {
-//   const keys = Object.keys(buttonsState);
-
-//   keys.forEach((key) => {
-//     const btn = document.getElementById(key);
-//     if (buttonsState[key]) {
-//       btn.classList.remove('control__btn_hide');
-//     } else {
-//       btn.classList.add('control__btn_hide');
-//     }
-//   });
-// };
-
 export const toggleGameButton = (buttonId, isVisible = false) => {
   const btn = document.getElementById(buttonId);
+
   if (isVisible) {
     btn.classList.remove('control__btn_hide');
   } else {
@@ -314,29 +245,12 @@ export const hideWordCards = () => {
   });
 };
 
-// export const hideCardsImage = () => {
-//   const wordCards = document.querySelectorAll('.word-card__moveable');
-
-//   wordCards.forEach((card) => {
-//     const wordCard = card;
-//     wordCard.style.backgroundImage = '';
-//   });
-// };
-
-// export const showCardsImage = (imageUrl) => {
-//   const wordCards = document.querySelectorAll('.word-card__moveable');
-
-//   wordCards.forEach((card) => {
-//     const wordCard = card;
-//     wordCard.style.backgroundImage = imageUrl;
-//   });
-// };
-
 export const toggleCardsImage = (imageUrl) => {
   const wordCards = document.querySelectorAll('.word-card__moveable');
 
   wordCards.forEach((card) => {
     const wordCard = card;
+
     wordCard.style.backgroundImage = imageUrl ? `url('${imageUrl}')` : '';
   });
 };
@@ -348,6 +262,7 @@ export const createSelectOptions = (cntRounds) => {
 
   for (let i = 1; i <= cntRounds; i += 1) {
     const opt = document.createElement('option');
+
     opt.value = i - 1;
     opt.text = i;
     opt.innerHTML = i;
@@ -384,14 +299,7 @@ export const switchButtonsToNextStep = () => {
   toggleGameButton('continue', true);
 };
 
-export const fillModal = ({ level, round }, { idontknow, iknow }) => {
-  console.log(`fillModal = ${level} ${round} ${idontknow} ${iknow}`);
-
-  if (level === LAST_LEVEL && round === LAST_ROUND) {
-    // show game over text
-    return;
-  }
-
+export const fillModal = ({ idontknow, iknow }) => {
   const idontknowContainer = document.querySelector('.modal__idontknow');
   const iknowContainer = document.querySelector('.modal__iknow');
 

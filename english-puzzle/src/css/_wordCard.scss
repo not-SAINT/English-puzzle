@@ -1,21 +1,17 @@
 .word-card {
   display: inline-block;
   height: 9.5%;
-  // margin: 0 2px;
   position: absolute;
   box-sizing: border-box;
   border: 2px solid black;
-  // border-radius: 5px;
   font-weight: 700;
   text-align: center;
   text-shadow: 0 0 5px #ffffff, 0 0 10px #ffffff;
   align-items: center;
   line-height: 3rem;
   user-select: none;
-
   background-size: 900px 600px;
   background-repeat: no-repeat;
-
   box-shadow: inset 2px 2px 5px #38373680, 1px 1px 5px #ffffff;
 
   @extend %transition;
@@ -54,7 +50,6 @@
   }
 
   &__hide-image {
-    // background-color: $color-puzzle-field;
     background-image: 'url()';
   }
 }

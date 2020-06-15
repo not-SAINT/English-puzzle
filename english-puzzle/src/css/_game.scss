@@ -1,20 +1,12 @@
 .game-field {
   width: 900px;
   height: 600px;
-
   margin: 20px auto;
-
   user-select: none;
-
-  // background-color: #e3f0cd;
 }
 
 .translate-field {
-  // width: 90%;
   height: 7%;
-  // margin: 0 auto;
-
-  // background-color: #caae8c;
 
   &__text {
     font-size: 2rem;
@@ -24,54 +16,30 @@
 }
 
 .puzzle-field {
-  // width: 90%;
   height: calc(100% - 24% - 30px);
-  // margin: 10px auto;
   margin-top: 10px;
   position: relative;
   border: 1px solid black;
-
-  // background-color: $color-puzzle-field;
-
   background-repeat: no-repeat;
-
-  // background-size: auto auto;
   background-size: 900px 600px;
 
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3),
     -23px 0 20px -23px rgba(0, 0, 0, 0.8), 23px 0 20px -23px rgba(0, 0, 0, 0.8),
     0 0 40px rgba(0, 0, 0, 0.1) inset;
-
-  // background-position: top 10px left 20px;
-
-  // background-image: url('./../img/brig.jpg');
 }
 
-// .puzzle-line {
-//   white-space: nowrap;
-//   background-color: cadetblue;
-// }
-
 .words-field {
-  // width: 90%;
   height: 10%;
   margin-top: 10px;
   display: flex;
   justify-content: center;
-  // margin: 0 auto;
-
   align-items: center;
-
-  // background-color: $color-puzzle-field;
 }
 
 .control-field {
-  // width: 90%;
   height: 7%;
   display: flex;
   justify-content: center;
-
-  // margin: 0 auto;
   margin-top: 10px;
 }
 
@@ -88,11 +56,4 @@
     font-size: 0;
     overflow: hidden;
   }
-
-  // &_show {
-  //   max-width: auto;
-  //   opacity: 1;
-  //   font-size: 0;
-  //   // overflow: hidden;
-  // }
 }

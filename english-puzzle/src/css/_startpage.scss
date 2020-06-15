@@ -7,9 +7,7 @@
   left: 0;
   right: 0;
   z-index: 4;
-
   text-align: center;
-
   background: url('./../img/english-puzzle-bg.jpg') no-repeat center center
     fixed;
   background-size: cover;
@@ -26,14 +24,7 @@
   }
 
   &__start {
-    // position: absolute;
-    // top: 40%;
-    // // left: 50%;
     font-size: 2rem;
-    // left: 0;
-    // right: 0;
     margin: 30px auto 0;
-
-    // width: 100px;
   }
 }

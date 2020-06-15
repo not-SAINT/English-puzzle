@@ -3,7 +3,6 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  // background-color: cyan;
 }
 
 .logo {
@@ -23,11 +22,8 @@
   display: flex;
   justify-content: space-between;
 
-  // background-color: blue;
-
   &__btn {
     margin-left: 20px;
-    // padding: 5px;
     font-size: 2rem;
 
     &_selected {
@@ -59,5 +55,3 @@
     }
   }
 }
-
-// автопроизношение, перевод, произношение слова, фоновое изображение

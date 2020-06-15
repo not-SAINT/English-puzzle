@@ -4,9 +4,7 @@ import {
   ROUND_SIZE,
   VOLUME_LEVEL_DEFAULT,
   CARD_MARGIN,
-  PUZZLE_FILED_HEIGHT,
 } from './options';
-import { restoreFromLocalStorage } from './worker';
 
 export const filterDataFromBackend = (data) => {
   return data.map((word) => {
@@ -43,24 +41,6 @@ export const getPuzzleLineHeigth = () => {
   return GAME_FILED_HEIGHT / ROUND_SIZE;
 };
 
-// {
-//   "id": "5e9f5ee35eb9e72bc21af4e5",
-//   "group": 0,
-//   "page": 3,
-//   "word": "instruct",
-//   "image": "files/04_0070.jpg",
-//   "audio": "files/04_0070.mp3",
-//   "audioMeaning": "files/04_0070_meaning.mp3",
-//   "audioExample": "files/04_0070_example.mp3",
-//   "textMeaning": "To <i>instruct</i> is to teach.",
-//   "textExample": "My teacher <b>instructs</b> us in several subjects.",
-//   "transcription": "[instrʌ́kt]",
-//   "textExampleTranslate": "Мой учитель учит нас нескольким предметам",
-//   "textMeaningTranslate": "Обучать - значит учить",
-//   "wordTranslate": "инструктирует",
-//   "wordsPerExampleSentence": 7
-// }
-
 export const shuffleArray = (arr) => {
   const res = arr.slice();
 
@@ -82,17 +62,6 @@ export const compareByLeft = (a, b) => {
 
   return 0;
 };
-
-// export const compareSimple = (a, b) => {
-//   if (a < b) {
-//     return -1;
-//   }
-//   if (a > b) {
-//     return 1;
-//   }
-
-//   return 0;
-// };
 
 export const playSound = (source, volume = VOLUME_LEVEL_DEFAULT) => {
   if (source) {
@@ -131,12 +100,3 @@ export const preloadImage = (imageUrl) => {
 export const getBackgroundInfo = ({ name, author, year }) => {
   return `Picture: ${name}. Author: ${author}. Year: ${year}`;
 };
-
-// {
-//   "id": "6_02",
-//   "name": "Card-Sharpers",
-//   "imageSrc": "level6/6_02.jpg",
-//   "cutSrc": "level6/cut/6_02.jpg",
-//   "author": "OOST, Jacob van, the Elder",
-//   "year": "1634"
-// },

@@ -51,7 +51,6 @@ export const restoreAppPromts = () => {
   const autoplay = restoreFromLocalStorage(AUTOPLAY_KEY);
   const translate = restoreFromLocalStorage(TRANSLATE_KEY);
   const image = restoreFromLocalStorage(BG_KEY);
-
   const promts = {};
 
   if (autoplay !== undefined) {

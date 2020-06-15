@@ -10,9 +10,6 @@ body {
 }
 
 .hide {
-  // display: none;
-  // opacity: 0;
-
   @extend %hide;
   @extend %transition;
 }

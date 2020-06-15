@@ -1,5 +1,4 @@
 import {
-  PUZZLE_FILED_HEIGHT,
   ROUND_SIZE,
   CARD_MARGIN,
   START_POS_WORDS,
@@ -27,26 +26,21 @@ export default class Round {
     this.currentStep = 0;
     this.currentStepNextCardPos = 0;
     this.currentStepTop = 0;
+    this.currentStepComplete = false;
     this.roundResults = {
       idontknow: [],
       iknow: [],
     };
 
-    // this.rightPos = 0;
     this.puzzle = document.getElementById('puzzle');
-
-    // this.lineHeight = PUZZLE_FILED_HEIGHT / ROUND_SIZE;
     this.lineHeight = calcLineHeight();
+    this.pictureObjectInfo = getBackgroundPictureObject(level, round);
 
     this.currentWords = '';
     this.currentSentence = '';
-    this.currentStepComplete = false;
     this.currentSentenceSound = '';
     this.currentSentenceTranslate = '';
-    this.pictureObjectInfo = getBackgroundPictureObject(level, round);
     this.currentBackground = '';
-    // this.currentBackgroundInfo = `ds ghfd sd jfgsdhfg sdjkf gh`;
-    // this.buttonsState = {};
   }
 
   async loadBackgroundPicture() {
@@ -56,7 +50,6 @@ export default class Round {
     this.currentBackground = pictureUrl;
 
     await preloadImage(pictureUrl);
-    // return pictureUrl;
   }
 
   async loadCurrSentence() {
@@ -66,9 +59,6 @@ export default class Round {
     await this.loadBackgroundPicture();
 
     myDom.clearWordsField();
-    // myDom.generateNewLinePuzzle();
-    // console.log(`this.currentBackground = ${this.currentBackground}`);
-
     myDom.createWordCards(words, this.currentBackground, this.currentStepTop);
 
     this.currentWords = words;
@@ -79,10 +69,6 @@ export default class Round {
 
     this.showPromts();
 
-    // this.buttonsState.idontknow = true;
-    // this.buttonsState.check = true;
-
-    // myDom.setGameButtons(this.buttonsState);
     myDom.toggleGameButton('idontknow', true);
     myDom.toggleGameButton('check', true);
     myDom.toggleGameButton('continue', false);
@@ -94,9 +80,6 @@ export default class Round {
     const cardWidth = parseInt(wordCard.dataset.width, 10);
 
     myDom.resetCheckedClasses();
-
-    // card.style.top = `${this.currentStepTop}px`;
-    // card.style.left = `${this.currentStepNextCardPos}px`;
 
     card = myDom.moveCardTo(
       card,
@@ -112,8 +95,6 @@ export default class Round {
   addResults(group) {
     const { idontknow, iknow } = this.roundResults;
     const sentence = this.currentSentence;
-
-    // console.log(`addResults = ${group} sentence = ${this.currentSentence} `);
 
     if (group === 'idontknow') {
       idontknow.push(sentence);
@@ -132,9 +113,6 @@ export default class Round {
 
     myDom.resetCheckedClasses();
 
-    // card.style.top = `${START_POS_WORDS}px`;
-    // card.style.left = `${startHorizCoord}px`;
-
     card = myDom.moveCardTo(card, START_POS_WORDS, startHorizCoord);
 
     this.currentStepNextCardPos -= cardWidth + CARD_MARGIN;
@@ -143,24 +121,13 @@ export default class Round {
     card.classList.remove('word-card__wrong');
     card.classList.remove('word-card__right');
 
-    // this.currentStepNextCardPos = myDom.pushBackLastCards(
-    //   this.currentStepNextCardPos
-    // );
-
     myDom.pushBackLastCards(cardLeft, cardWidth);
-
-    // wordCard.style.top = `${START_POS_WORDS}px`;
-    // wordCard.style.left = `${startHorizCoord}px`;
-    // wordCard.dataset.startIndex = index;
-    // wordCard.dataset.startHorizCoord = startHorizCoord;
   }
 
   checkCurrentWordsPosition() {
     this.currentStepComplete = myDom.setCorrectWordCardPosition(
       this.currentWords
     );
-
-    // console.log(`this.currentStepComplete = ${this.currentStepComplete}`);
 
     return this.currentStepComplete;
   }
@@ -175,7 +142,6 @@ export default class Round {
 
     myDom.resetCheckedClasses();
     myDom.clearTranslate();
-    // на всякий случай, удалить все оставшиеся слова в ожидании
     myDom.clearUnusedWords();
     myDom.saveCardsPosition();
 
@@ -189,9 +155,9 @@ export default class Round {
     this.checkCurrentWordsPosition();
 
     if (!this.currentStepComplete) {
-      // myDom.showCardsImage(this.currentBackground);
       myDom.toggleCardsImage(this.currentBackground);
       myDom.setWords(this.currentWords, this.currentStepTop);
+
       this.addResults('idontknow');
     } else {
       this.addResults('iknow');
@@ -227,12 +193,11 @@ export default class Round {
       iknow: [],
     };
 
-    // скрыть карточки
     myDom.hideWordCards();
-    // показать данные о картине
     myDom.toggleGameButton('results', true);
-    // показать инфу о картинке
+
     const currentBackgroundInfo = getBackgroundInfo(this.pictureObjectInfo);
+
     myDom.showTranslate(currentBackgroundInfo);
   }
 }

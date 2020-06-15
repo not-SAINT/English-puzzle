@@ -18,7 +18,6 @@ import {
 import {
   setPromtButtons,
   setPuzzleBackgroundImage,
-  hideCardsImage,
   createSelectOptions,
   resetPuzzleField,
   setSelectWithAppState,
@@ -32,31 +31,21 @@ import '../css/style.css';
 import '../css/style.scss';
 
 let CUR_ROUND;
-// let AUTO_PLAY;
 let PROMTS;
 let APP_STATE;
 let MAX_ROUND;
 
 const startNewRound = async () => {
-  // const { level, round } = APP_STATE;
-  // get data
-  // const data = await getRoundDataTest();
   const data = await getRoundData(APP_STATE);
   const filteredData = filterDataFromBackend(data);
 
   resetPuzzleField();
-  // create blocks
   CUR_ROUND = new Round(APP_STATE, filteredData, PROMTS);
-
   CUR_ROUND.loadCurrSentence();
-  // create
-  //
 };
 
 const setNextRound = () => {
   let { level, round } = APP_STATE;
-
-  console.log(`setNextRound level ${level}, round ${round}`);
 
   if (round < MAX_ROUND) {
     round = +round + 1;
@@ -74,8 +63,6 @@ const setNextRound = () => {
     round,
   };
 
-  console.log(`setNextRound level ${level} round ${round}`);
-
   setSelectWithAppState(APP_STATE);
 };
 
@@ -90,7 +77,7 @@ const onContinueClick = () => {
   if (currentStep === lastRoundStep) {
     const url = `url('${CUR_ROUND.currentBackground}')`;
 
-    fillModal(APP_STATE, CUR_ROUND.roundResults);
+    fillModal(CUR_ROUND.roundResults);
     setPuzzleBackgroundImage(url);
 
     return CUR_ROUND.endRound();
@@ -144,9 +131,12 @@ const checkWords = () => {
 
 const changePromt = (promts, promtName) => {
   const res = promts;
+
   res[promtName] = !promts[promtName];
+
   saveToLocalStorage(promtName, res[promtName]);
   setPromtButtons(res);
+
   return res;
 };
 
@@ -171,17 +161,10 @@ const setAppState = () => {
   const round = selectRound.options[selectRound.selectedIndex].value;
 
   APP_STATE = { level, round };
-
-  // saveToLocalStorage(NEXT_ROUND_KEY, APP_STATE);
 };
 
 const setRoundsSelect = async () => {
-  // console.log(
-  //   `setRoundsSelect level ${APP_STATE.level} round ${APP_STATE.round}`
-  // );
   const cntRoundsPerLevel = await getCountRoundsPerLevel(APP_STATE);
-
-  // console.log(`cntRoundsPerLevel ${cntRoundsPerLevel} `);
 
   MAX_ROUND = cntRoundsPerLevel - 1;
 
@@ -190,26 +173,15 @@ const setRoundsSelect = async () => {
 };
 
 const onPageChange = () => {
-  console.log(`onPageChange =>`);
-
   setAppState();
-  // load new round
   startNewRound();
 };
 
 const onLevelChange = () => {
-  console.log(`onLevelChange =>`);
-
   setAppState();
-  // load new pages
   setRoundsSelect();
-  // load new round
   startNewRound();
 };
-
-// const checkSomething = () => {
-//   hideCardsImage();
-// };
 
 const onIdontknowClick = () => {
   CUR_ROUND.setRestWords();
@@ -227,10 +199,6 @@ const setHandlers = () => {
   document
     .getElementById('autoplay')
     .addEventListener('click', onAutoPlayClick);
-
-  // document
-  //   .getElementById('test')
-  //   .addEventListener('click', handlers.onTestClick);
 
   document.getElementById('puzzle').addEventListener('click', moveWordToLine);
 
@@ -254,9 +222,6 @@ const setHandlers = () => {
 
   document.getElementById('level').addEventListener('change', onLevelChange);
   document.getElementById('round').addEventListener('change', onPageChange);
-
-  // check something
-  // document.getElementById('go').addEventListener('click', checkSomething);
 };
 
 const loadState = () => {

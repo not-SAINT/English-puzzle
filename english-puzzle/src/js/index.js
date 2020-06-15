@@ -113,6 +113,7 @@ const moveWordToLine = ({ target }) => {
   }
 
   if (isStepComplited) {
+    CUR_ROUND.showRestPromts();
     CUR_ROUND.addResults('iknow');
     switchButtonsToNextStep();
   }

@@ -27,6 +27,7 @@ export default class Round {
     this.currentStepNextCardPos = 0;
     this.currentStepTop = 0;
     this.currentStepComplete = false;
+    this.isSentenceVoiced = false;
     this.roundResults = {
       idontknow: [],
       iknow: [],
@@ -134,6 +135,7 @@ export default class Round {
 
   resetStepVars() {
     this.currentStepNextCardPos = 0;
+    this.isSentenceVoiced = false;
   }
 
   nextStep() {
@@ -166,22 +168,41 @@ export default class Round {
     myDom.switchButtonsToNextStep();
   }
 
-  showPromts(isChosen = true) {
-    if (isChosen && this.promts.autoplay) {
+  showPromts() {
+    if (this.promts.autoplay && !this.isSentenceVoiced) {
       const url = `${VOICE_URL}${this.currentSentenceSound}`;
+
+      this.isSentenceVoiced = true;
+
       playSound(url);
     }
 
-    if (isChosen && this.promts.translate) {
+    if (this.promts.translate) {
       myDom.showTranslate(this.currentSentenceTranslate);
     } else {
       myDom.clearTranslate();
     }
 
-    if (isChosen && this.promts.image) {
+    if (this.promts.image) {
       myDom.toggleCardsImage(this.currentBackground);
     } else {
       myDom.toggleCardsImage();
+    }
+  }
+
+  showRestPromts() {
+    if (!this.promts.autoplay) {
+      const url = `${VOICE_URL}${this.currentSentenceSound}`;
+
+      playSound(url);
+    }
+
+    if (!this.promts.translate) {
+      myDom.showTranslate(this.currentSentenceTranslate);
+    }
+
+    if (!this.promts.image) {
+      myDom.toggleCardsImage(this.currentBackground);
     }
   }
 
